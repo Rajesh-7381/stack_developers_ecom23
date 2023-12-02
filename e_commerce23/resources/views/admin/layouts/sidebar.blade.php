@@ -36,16 +36,16 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item {{ Request::is('admin/dashboard*') ? 'menu-open' : '' }}">
-            <a href="{{ url('admin/dashboard') }}" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
-                <p>Dashboard</p>
-            </a>
-            {{-- <a href="{{ url('admin/dashboard') }}" class="nav-link {{ Request::is('admin/dashboard*') ? 'active' : '' }}">
+            {{-- <a href="{{ url('admin/dashboard') }}" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>Dashboard</p>
             </a> --}}
+            <a href="{{ url('admin/dashboard') }}" class="nav-link {{ Request::is('admin/dashboard*') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-th"></i>
+                <p>Dashboard</p>
+            </a>
         </li>
-        {{-- @if (Auth::guard('admin')->user()->type=='admin')
+        @if (Auth::guard('admin')->user()->type=='admin')
         <li class="nav-item {{ Request::is('admin/updatepassword*') || Request::is('admin/updateadmindetails*') ? 'menu-open' : '' }}">
             <a href="#" class="nav-link {{ Request::is('admin/updatepassword*') || Request::is('admin/updateadmindetails*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -73,7 +73,7 @@
             
         </li>
     
-        <li class="nav-item {{ Request::is('admin/cms-page*') ? 'menu-open' : '' }}">
+        {{-- <li class="nav-item {{ Request::is('admin/cms-page*') ? 'menu-open' : '' }}">
             <a href="{{ url('admin/cms-page') }}" class="nav-link {{ Request::is('admin/cms-page*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>

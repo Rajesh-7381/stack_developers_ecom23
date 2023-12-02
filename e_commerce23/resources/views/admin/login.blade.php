@@ -25,7 +25,7 @@
 			</div>
 			<div class="card-body">
 				<p class="login-box-msg">Sign in to start your session</p>
-				{{-- @if (session('error_message'))
+				@if (session('error_message'))
 				<div class="alert alert-danger">
 					{{ session('error_message') }}
 				</div>
@@ -34,7 +34,7 @@
 				<div class="alert alert-success">
 					{{ session('success_message') }}
 				</div>
-				@endif --}}
+				@endif
 				<form action="{{url('admin/login')}}" method="post">
 					@csrf
 					<div class="input-group mb-3">
