@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\MainController;
+// use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\MainController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,5 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('login',[MainController::class,'login']);
-Route::get('dashboard',[MainController::class,'dashboard']);
+
+
+Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function(){
+    Route::match(['get', 'post'], '/login', [MainController::class, 'login']);
+    Route::group(['middleware' => ['admin']], function () {
+        Route::get('/dashboard', [MainController::class, 'dashboard']);
+        Route::get('/logout',[MainController::class,'logout']);
+    });
+});
+
+// Route::get('login',[MainController::class,'login']);
+// Route::get('dashboard',[MainController::class,'dashboard']);
