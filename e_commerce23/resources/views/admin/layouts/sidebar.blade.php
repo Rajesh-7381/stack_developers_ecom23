@@ -73,7 +73,7 @@
             
         </li>
     
-        {{-- <li class="nav-item {{ Request::is('admin/cms-page*') ? 'menu-open' : '' }}">
+        <li class="nav-item {{ Request::is('admin/cms-page*') ? 'menu-open' : '' }}">
             <a href="{{ url('admin/cms-page') }}" class="nav-link {{ Request::is('admin/cms-page*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
@@ -122,7 +122,7 @@
             </li>
          </ul>
         </li>
-        @endif --}}
+        @endif
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
