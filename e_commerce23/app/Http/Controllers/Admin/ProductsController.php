@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AdminsModel;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Products;
 use App\Models\ProductsAttributes;
@@ -114,6 +115,7 @@ class ProductsController extends Controller
         }
            
             $product->category_id = $data['category_id'];
+            $product->brand_id = $data['brand_id'];
             $product->product_name = $data['product_name'];
             $product->product_code = $data['product_code'];
             $product->product_color = $data['product_color'];
@@ -217,15 +219,18 @@ class ProductsController extends Controller
                 }
 
                 // add product attributes
-                foreach($data['attributeId'] as $key =>$attribute){
-                    if(!empty($attribute)){
-                        ProductsAttributes::where('id', $data['attributeId'][$key])
-                        ->update([
-                            'price' => $data['price'][$key],
-                            'stock' => $data['stock'][$key]
-                        ]);
-                                        }
+                if(isset($data['attributeId'])){
+                    foreach($data['attributeId'] as $key =>$attribute){
+                        if(!empty($attribute)){
+                            ProductsAttributes::where('id', $data['attributeId'][$key])
+                            ->update([
+                                'price' => $data['price'][$key],
+                                'stock' => $data['stock'][$key]
+                            ]);
+                                            }
+                    }
                 }
+                
                 // edit product attributes
                 
                 return redirect('admin/products')->with('success_message', $message);
@@ -244,11 +249,14 @@ class ProductsController extends Controller
         // get categories and sub categories
         $getcategories=Category::getcategories();
 
+        // get brands
+        $getBrands=Brand::where('status',1)->get()->toArray();
+
         // product filters
         $productsfilter=Products::productsfilter();
         // dd($product['pattern']) ;
 
-        return view('admin.products.add-edit-product-page')->with(compact('title','getcategories','productsfilter','product'));
+        return view('admin.products.add-edit-product-page')->with(compact('title','getcategories','productsfilter','product','getBrands'));
     }
     public function productvideo($id){
         $message='product deleted sucessfully';

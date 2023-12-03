@@ -70,6 +70,17 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label for="product_name">Select Brands <span style="color: red">*</span></label>
+                                    <select class="form-control" name="brand_id" id="brand_id">
+                                        <option value="">select</option>
+                                        @foreach($getBrands as $key => $brand)
+                                            <option value="{{$brand['id']}}" @if(!empty($product['brand_id']) && $product['brand_id'] == $brand['id']) selected @endif>
+                                                {{$brand['brand_name']}}
+                                            </option>
+                                        @endforeach
+                                    </select>                                    
+                                </div>
+                                <div class="form-group">
                                     <label for="product_name">product name<span style="color: red">*</span></label>
                                     <input type="text" class="form-control" id="product_name" name="product_name" placeholder=" Enter product name" value="{{ isset($product['product_name']) ? $product['product_name'] : old('product_name') }}">
                                     @error('product_name')

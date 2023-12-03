@@ -38,7 +38,7 @@
                                         <td>{{$brand['url']}}</td>
                                         <td>{{$brand['created_at']}}</td>
                                         <td>
-                                            {{-- @if($categoriesmodule['edit_acess']==1 || $categoriesmodule['full_acess']==1  ) --}}
+                                            @if($brandsmodule['edit_acess']==1 || $brandsmodule['full_acess']==1  )
                                                 @if($brand['status']==1)
                                                 <a class="updatebrandstatus" id="brand-{{$brand['id']}}" brand_id="{{$brand['id']}}" check="brand-page" status="Active" href="javascript:void(0)">
                                                     <i class="fas fa-toggle-on"></i>
@@ -49,8 +49,8 @@
                                                 </a>
                                             
                                                 @endif
-                                                {{-- @endif --}}
-                                                {{-- @if($categoriesmodule['edit_acess']==1 ||$categoriesmodule['full_acess']==1 ) --}}
+                                                @endif
+                                                @if($brandsmodule['edit_acess']==1 ||$brandsmodule['full_acess']==1 )
 
                                             <a href="{{url('admin/add-edit-brand-page/'.$brand['id'])}}"><i class="fas fa-edit btn btn-success btn-sm"></i></a>
                                             {{-- <a href="{{url('admin/delete-brand/'.$brand['id'])}}" name="brand-page"record="brand" record_id="{{$brand['id']}}" class="confirmdelete btn btn-danger btn-sm" title="cms page deleted successfully"><i class="fas fa-trash"></i></a> --}}
@@ -58,7 +58,7 @@
                                         
 
                                             {{-- <a href="javascript:void(0)" record="cms-page" record_id="{{$page['id']}}" name="cms page" class="confirmdelete btn btn-danger btn-sm" title="cms page deleted successfully"><i class="fas fa-trash"></i></a> --}}
-                                           {{-- @endif --}}
+                                           @endif
                                         </td>
                                     </tr>
                                     @endforeach

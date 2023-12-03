@@ -222,6 +222,7 @@ class MainController extends Controller
              // dd($subadminData);
              // echo "<pre>";
              // print_r($subadminData);
+             $subadminData->status=1;
              $subadminData->save();
  
              return redirect('admin/sub-admins')->with('success_message', $message);
@@ -257,6 +258,7 @@ class MainController extends Controller
                  }else{
                      $full=0;
                  }
+                //  AdminsModel::where('subadmin_id',$id)->insert(['subadmin_id'=>$id,'module'=>$key,'view_access'=>$view,'edit_access'=>$edit,'full_access'=>$full]);
              }
  
          
