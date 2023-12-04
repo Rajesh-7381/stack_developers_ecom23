@@ -285,4 +285,43 @@ $(document).ready(function () {
             },
         });
     });
+    // update banner status
+    $(document).on("click", ".updatebannerstatus", function () {
+        var status = $(this).attr("status");
+        // alert(status)
+        var banner_id = $(this).attr("banner_id");
+        // alert(product_id)
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            type: "post",
+            url: "/admin/update-status-banner-page",
+            data: { status: status, banner_id: banner_id },
+            success: function (response) {
+                // Handle the response from the server after the status update
+                if (response["status"] == 0) {
+                    // If the status is 0, update the icon and status to 'Inactive'
+                    $("#banner-" + banner_id + " i")
+                        .removeClass("fa-toggle-on")
+                        .addClass("fa-toggle-off")
+                        .css("color", "gray");
+                    $("#banner-" + banner_id).attr("status", "Inactive");
+                } else if (response["status"] == 1) {
+                    // If the status is 1, update the icon and status to 'Active'
+                    $("#banner-" + banner_id + " i")
+                        .removeClass("fa-toggle-off")
+                        .addClass("fa-toggle-on")
+                        .css("color", "");
+                    $("#banner-" + banner_id).attr("status", "Active");
+                } else {
+                    // Handle other cases if needed
+                }
+            },
+            error: function () {
+                // If there's an error with the AJAX request, show an alert
+                alert("Error");
+            },
+        });
+    });
 });

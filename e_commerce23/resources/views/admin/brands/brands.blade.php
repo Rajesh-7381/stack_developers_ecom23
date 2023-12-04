@@ -10,9 +10,9 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">brand Pages</h3>
-                            {{-- @if($categoriesmodule['edit_acess']==1 ||$categoriesmodule['full_acess']==1 ) --}}
+                            @if($brandsmodule['edit_acess']==1 ||$brandsmodule['full_acess']==1 )
                             <a class="float-right btn btn-primary btn-sm" href="{{url('admin/add-edit-brand-page')}}">Add brand Page</a>
-                            {{-- @endif --}}
+                            @endif`
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">

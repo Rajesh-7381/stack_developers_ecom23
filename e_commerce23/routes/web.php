@@ -5,6 +5,7 @@
 use App\Http\Controllers\admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\admin\ProductsController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CmsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
@@ -80,6 +81,15 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         // Route::match(['get','post'],'add-edit-brand-page/{id?}',[BrandController::class,'addedit']);
         Route::get('delete-brand-image/{id?}',[BrandController::class,'brandimage']);
         Route::get('delete-brand-logo/{id?}',[BrandController::class,'brandlogo']);
+
+        // banners
+        Route::get('banners',[BannerController::class,'banners']);
+        Route::post('update-status-banner-page',[BannerController::class,'updatebannerstatus']);
+        Route::get('delete-banner-page/{id?}',[BannerController::class,'deletebanner']);
+        Route::match(['get','post'],'add-edit-banner-page/{id?}',[BannerController::class,'addedit']);
+
+
+
     });
 });
 
