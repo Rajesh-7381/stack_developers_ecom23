@@ -11,7 +11,7 @@
                         <div class="card-header">
                             <h3 class="card-title">banner Pages</h3>
                             {{-- @if($bannersmodule['edit_acess']==1 ||$bannersmodule['full_acess']==1 ) --}}
-                            <a class="float-right btn btn-primary btn-sm" href="{{url('admin/add-edit-banner-page')}}">Add banner Page</a>
+                            <a class="float-right btn btn-primary btn-sm" href="{{ url('admin/add-edit-banner-page') }}">Add Banner Page</a>
                             {{-- @endif --}}
                         </div>
                         <!-- /.card-header -->
@@ -34,8 +34,11 @@
                                     @foreach ($banners as $banner)
                                     <tr>
                                         <td>{{$banner['id']}}</td>
-                                        <td><a href="{{ url('./admin-assets/front/banners/' . $banner['image']) }}"  target="_blank" rel="noopener noreferrer"><img src="{{ asset('./admin-assets/front/banners/' . $banner['image']) }}" alt=""></a></td>                                                                                                                 
-                                        <td>{{$banner['type']}}</td>
+                                        <td>
+                                            <a href="{{ url('./admin-assets/front/banners/' . $banner['image']) }}" target="_blank" rel="noopener noreferrer">
+                                                <img src="{{ asset('./admin-assets/front/banners/' . $banner['image']) }}" alt="" style="max-width: 200px; height: auto;">
+                                            </a>
+                                        </td>                                                                                <td>{{$banner['type']}}</td>
                                         <td>{{$banner['link']}}</td>
                                         <td>{{$banner['title']}}</td>
                                         <td>{{$banner['alt']}}</td>

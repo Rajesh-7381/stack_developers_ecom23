@@ -52,14 +52,15 @@ class BannerController extends Controller
         Banner::where('id', $id)->delete();
         return redirect('admin/banners')->with('success_message', 'deleted successfully');
     }
-    public function addedit(Request $request ,$id=null){
+    public function addedit(Request $request, $id = null) {
+        // Logic for handling the request, if required
         if (empty($id)) {
             $title = "Add banner";
-            $banner = new Banner();
+            $banner = new banner();
             $message = "banner added successfully";
         } else {
             $title = "Edit banner";
-            $banner = Banner::find($id);
+            $banner = banner::find($id);
             if (!$banner) {
                 return redirect()->back()->with('error_message', 'banner not found');
             }
@@ -68,23 +69,27 @@ class BannerController extends Controller
 
         if ($request->isMethod('post')) {
             $data = $request->all();
+            // echo '<pre>';print_r($data);die;
            if($id==""){
             $rules = [
-                'banner_name' => 'required',
-                'url' => 'required|unique:categories,url,' . ($banner ? $banner->id : 'NULL'),
+                'type' => 'required',
+                'image' => 'required',
+                'alt' => 'required|unique:banners' . ($banner ? $banner->id : 'NULL'),
                 // Add other validation rules as needed
             ];
            }else{
             $rules = [
-                'banner_name' => 'required',
-                'link' => 'required',
+                'type' => 'required',
+                'alt' => 'required',
+                
                 // Add other validation rules as needed
             ];
            }
             $customMessages = [
-                'banner_name.required' => "banner name is required",
-                'link.required' => "banner LINK is required",
-                'link.unique' => "banner LINK must be unique",
+                'type.required' => "banner name is required",
+                'alt.required' => "banner URL is required",
+                'alt.unique' => "banner URL must be unique",
+                'image' => "image  must be required",
                 // Add other custom messages for validation
             ];
             $this->validate($request, $rules, $customMessages);
@@ -98,25 +103,24 @@ class BannerController extends Controller
                     $image_path = 'admin-assets/front/banners/' . $imagename;
                     $img = Image::make($image_temp);
                     $img->save(public_path($image_path));
-                    $banner->banner_image = $imagename;
+                    $banner->image = $imagename;
                 }
             } else {
-                $banner->banner_image = "";
+                $banner->image = "";
             }
 
             // Update banner fields
-            $banner->banner_name = $data['banner_name'];
+            $banner->type = $data['type'];
             $banner->link = $data['link'];
-            $banner->alt = $data['alt'];
             $banner->title = $data['title'];
+            $banner->alt = $data['alt'];
             $banner->sort = $data['sort'];
-            $banner->status = 1;
-
-            // Save banner
+            $banner->status = 1;          
             $banner->save();
-            return redirect('admin/categories')->with('success_message', $message);
-            return view('admin.banners.add-edit-banner-page')->with(compact('title', 'banner'));
-
+            return redirect('admin/banners')->with('success_message', $message);
         }
+        return view('admin.banners.add-edit-banner-page')->with(compact('title','banner'));
+        
     }
+    
 }

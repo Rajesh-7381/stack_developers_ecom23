@@ -46,11 +46,11 @@
             </a>
         </li>
         @if (Auth::guard('admin')->user()->type=='admin')
-        <li class="nav-item {{ Request::is('admin/updatepassword*') || Request::is('admin/updateadmindetails*') ? 'menu-open' : '' }}">
-            <a href="#" class="nav-link {{ Request::is('admin/updatepassword*') || Request::is('admin/updateadmindetails*') ? 'active' : '' }}">
+        <li class="nav-item {{ Request::is('admin/updatepassword*') || Request::is('admin/updateadmindetails*') || Request::is('admin/sub-admins*')? 'menu-open' : '' }}">
+            <a href="#" class="nav-link {{ Request::is('admin/updatepassword*') || Request::is('admin/updateadmindetails*') || Request::is('admin/sub-admins*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
-                    Settings
+                  Admin  Management
                     <i class="right fas fa-angle-left"></i>
                 </p>
             </a>
@@ -68,35 +68,27 @@
                       <p>Update Admin Details</p>
                   </a>
               </li>
+              @if (Auth::guard('admin')->user()->type=='admin')
+              <li class="nav-item {{ Request::is('admin/sub-admins*') ? 'menu-open' : '' }}">
+                  <a href="{{ url('admin/sub-admins') }}" class="nav-link {{ Request::is('admin/sub-admins*') ? 'active' : '' }}">
+                      <i class="nav-icon fas fa-users"></i>
+                      <p>
+                        sub-admins
+                      </p>
+                  </a>
+              </li>
+              @endif
           </ul>
             @endif
             
-        </li>
-    
-        <li class="nav-item {{ Request::is('admin/cms-page*') ? 'menu-open' : '' }}">
-            <a href="{{ url('admin/cms-page') }}" class="nav-link {{ Request::is('admin/cms-page*') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-copy"></i>
-                <p>
-                    CMS Pages
-                </p>
-            </a>
-        </li>
-        @if (Auth::guard('admin')->user()->type=='admin')
-        <li class="nav-item {{ Request::is('admin/sub-admins*') ? 'menu-open' : '' }}">
-            <a href="{{ url('admin/sub-admins') }}" class="nav-link {{ Request::is('admin/sub-admins*') ? 'active' : '' }}">
-                <i class="nav-icon fas fa-users"></i>
-                <p>
-                  sub-admins
-                </p>
-            </a>
-        </li>
-        @endif
+        </li>   
+              
         @if (Auth::guard('admin')->user()->type=='admin')
         <li class="nav-item {{ Request::is('admin/categories*') || Request::is('admin/products*') || Request::is('admin/brands*') ? 'menu-open' : '' }}">
           <a href="#" class="nav-link {{ Request::is('admin/categories*') || Request::is('admin/products*') || Request::is('admin/brands*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                catalogues
+                Catalogues Management
                   <i class="right fas fa-angle-left"></i>
               </p>
           </a>
@@ -120,6 +112,53 @@
                     <p>Products</p>
                 </a>
             </li>
+         </ul>
+        </li>       
+        @endif
+
+        @if (Auth::guard('admin')->user()->type=='admin')
+        <li class="nav-item {{ Request::is('admin/cms-page*') ? 'menu-open' : '' }}">
+          <a href="#" class="nav-link {{ Request::is('admin/cms-page*')? 'active' : '' }}">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Cms Management
+                  <i class="right fas fa-angle-left"></i>
+              </p>
+          </a>
+        
+          <ul class="nav nav-treeview">
+            <li class="nav-item {{ Request::is('admin/cms-page*') ? 'menu-open' : '' }}">
+              <a href="{{ url('admin/cms-page') }}" class="nav-link {{ Request::is('admin/cms-page*') ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-copy"></i>
+                  <p>
+                      CMS Pages
+                  </p>
+              </a>
+            </li>          
+         </ul>
+        </li>
+        @endif
+
+
+        @if (Auth::guard('admin')->user()->type=='admin')
+        <li class="nav-item {{ Request::is('admin/banners*') ? 'menu-open' : '' }}">
+          <a href="#" class="nav-link {{ Request::is('admin/banners*')? 'active' : '' }}">
+              <i class="nav-icon fas fa-image"></i>
+              <p>
+                Banners Management
+                  <i class="right fas fa-angle-left"></i>
+              </p>
+          </a>
+        
+          <ul class="nav nav-treeview">
+            <li class="nav-item {{ Request::is('admin/banners*') ? 'menu-open' : '' }}">
+              <a href="{{ url('admin/banners') }}" class="nav-link {{ Request::is('admin/banners*') ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-copy"></i>
+                  <p>
+                      Banner Pages
+                  </p>
+              </a>
+            </li>          
          </ul>
         </li>
         @endif

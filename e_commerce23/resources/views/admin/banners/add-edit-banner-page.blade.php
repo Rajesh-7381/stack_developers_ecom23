@@ -11,8 +11,8 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{alt('/admin/dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{alt('/admin/banners')}}">Back</a></li>
+                        <li class="breadcrumb-item"><a href="{{url('/admin/dashboard')}}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{url('/admin/banners')}}">Back</a></li>
                         <li class="breadcrumb-item active">Advanced Form</li>
                     </ol>
                 </div>
@@ -43,31 +43,45 @@
                             {{ session('success_message') }}
                         </div>
                         @endif
-                        <form name="bannerform" id="bannerform" @if(empty($banner['id']))
-                            action="{{alt('admin/add-edit-banner-page')}}" @else
-                            action="{{alt('admin/add-edit-banner-page/'.$banner['id'])}}" @endif method="post"
+                        <form name="bannerform" id="bannerform" method="post" @if(empty($banner['id']))
+                        action="{{url('admin/add-edit-banner-page')}}" @else
+                        action="{{url('admin/add-edit-banner-page/'.$banner['id'])}}" @endif
                             enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="banner_name">banner Name*</label>
-                                    <input type="text" class="form-control" id="banner_name" name="banner_name"
-                                        placeholder="Enter banner name"
-                                        value="{{ isset($banner['banner_name']) ? $banner['banner_name'] : old('banner_name') }}">
-                                    @error('banner_name')<span class="text-danger">{{ $message }}</span>@enderror
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="banner_image">banner Image*</label>
-                                    <select name="" id="">
-                                        <option value="">fix 1</option>
-                                        <option value="">fix 2</option>
-                                    </select>
-                                    
+                                    <label for="image">Banner Image*</label>
+                                    <input type="file" class="form-control" id="image" name="image"> 
+                                
+                                    @if(!empty($banner['image']))
+                                        <a href="{{ asset('./admin-assets/front/banners/' . $banner['image']) }}" target="_blank">
+                                            <!-- Adjust width to a smaller size, e.g., 150px -->
+                                            <img src="{{ asset('./admin-assets/front/banners/' . $banner['image']) }}" alt="" style="width: 150px">
+                                        </a>
+                                        <!-- Your existing delete button with SweetAlert confirmation -->
+                                        <a href="javascript:void(0)" record="brand-page" record_id="{{$banner['id']}}"
+                                            name="brand page" check="brand-page" class="confirmdelete btn btn-danger btn-sm"
+                                            title=" delete it!"><i class="fas fa-trash"></i></a>
+                                    @endif
+                                
+                                    @error('image')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="link">banner link</label>
+                                    <label for="type">Banner Type*</label>
+                                    <select name="type" id="type">
+                                        <option value="">--select--</option>
+                                        <option value="fix1" {{ ($banner['type'] ?? '') == 'fix1' ? 'selected' : '' }}>fix 1</option>
+                                        <option value="fix2" {{ ($banner['type'] ?? '') == 'fix2' ? 'selected' : '' }}>fix 2</option>
+                                        <option value="fix3" {{ ($banner['type'] ?? '') == 'fix3' ? 'selected' : '' }}>fix 3</option>
+                                        <option value="fix4" {{ ($banner['type'] ?? '') == 'fix4' ? 'selected' : '' }}>fix 4</option>
+                                    </select>
+                                </div>                                
+                                
+                                <div class="form-group">
+                                    <label for="link">Banner link</label>
                                     <input type="text" class="form-control" id="link"
                                         placeholder="enter banner link" name="link"
                                         value="{{ isset($banner['link']) ? $banner['link'] : old('link') }}">
@@ -76,17 +90,17 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="alt">banner alt</label>
+                                    <label for="alt">Banner alt</label>
                                     <input type="text" class="form-control" id="alt" name="alt" placeholder="enter alt"
                                         value="{{ isset($banner['alt']) ? $banner['alt'] : old('alt') }}">
                                     @error('banner_alt')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                            </div>
+                           
                             <!-- /.card-body -->
                             <div class="form-group">
-                                <label for="title"> title</label>
+                                <label for="title">Banner title</label>
                                 <textarea class="form-control" id="title" name="title"
                                     placeholder="Enter title">{{ isset($banner['title']) ? $banner['title'] : old('title') }}</textarea>
                                 @error('title')
@@ -94,9 +108,18 @@
                                 @enderror
                             </div>
                                                                          
+                            <div class="form-group">
+                                <label for="sort">Banner SORT</label>
+                                <input type="number" class="form-control" id="sort" name="sort" value="{{ isset($banner['sort']) ? $banner['sort'] : old('sort') }}">
+                                @error('sort')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                                                                         
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
+                            </div> 
+                        </div>
                         </form>
                     </div>
                     <!-- /.card -->

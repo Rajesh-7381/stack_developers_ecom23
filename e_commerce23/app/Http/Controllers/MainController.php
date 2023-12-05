@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\AdminsModel;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Products;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -122,7 +126,11 @@ class MainController extends Controller
     
     
     public static function dashboard(){
-        return view('admin.dashboard');
+        $categoriesCount=Category::get()->count();
+        $productsCount=Products::get()->count();
+        $brandsCount=Brand::get()->count();
+        $usersCount=User::get()->count();
+        return view('admin.dashboard')->with(compact('categoriesCount','productsCount','brandsCount','usersCount'));
     }
     public function logout()
     {
