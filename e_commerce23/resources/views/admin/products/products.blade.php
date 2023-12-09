@@ -27,9 +27,7 @@
                                         <th> GROUP CODE</th>
                                         <th> CATEGORY</th>
                                         <th>PARENT CATEGORY </th>
-
                                         <th>created_at</th>
-
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -48,10 +46,17 @@
                                         @endif
 
                                         <td>
+                                            @if(isset($product['category']['category_name']))
+                                            {{ $product['category']['category_name'] }}
                                             @if(isset($product['category']['parentcategory']['category_name']))
-                                            {{$product['category']['parentcategory']['category_name']}}
+                                            (Parent: {{ $product['category']['parentcategory']['category_name'] }})
                                             @endif
+                                            @else
+                                            No Category
+                                            @endif
+
                                         </td>
+
 
 
                                         <td>{{$product['created_at']}}</td>

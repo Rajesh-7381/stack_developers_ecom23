@@ -14,6 +14,9 @@ class Products extends Model
     public function category(){
         return $this->belongsTo(Category::class,'category_id')->with('parentcategory');
     }
+    public function brand(){
+        return $this->belongsTo(Brand::class,'brand_id');
+    }
     public static function productsfilter(){
         // productsfilter
         $productsfilter['fabricArray']=array('cotton','polyster','wool');

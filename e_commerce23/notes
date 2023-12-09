@@ -62,3 +62,6 @@ After creating id and secret id
 12. #58 and #59 delete not worked and image_sort is not worked
 13. all pages role and permission not worked
 14.add manually image in banner table
+15. in manually add product in product page  because frontend->index.blade.php->new arrivals depend  otherwise it shown error
+17.i had manually added ajax in prodcts.blade.php in admin side and final price field also in prodct controller 
+18.{{-- @if($product['discount_type'] == null)  {{it is correct according stack developer but in my case shown discount type is null in mt db thats why we change  condition --}} in frontend->index.bladde.php 

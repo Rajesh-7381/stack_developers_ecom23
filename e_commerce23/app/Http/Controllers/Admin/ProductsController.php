@@ -19,6 +19,9 @@ class ProductsController extends Controller
     //
     public function products(){
         $products=Products::with('category')->get()->toArray();
+        // $products = Products::with('category.parentcategory')->get()->toArray();
+
+        // $products=Products::with('category.parentcategory')->get()->toArray();
         // dd($products);
         $productscount=AdminsModel::where(['subadmin_id'=>Auth::guard('admin')->user()->id,'module'=>'products'])->count();
         $productsmodule=array();
@@ -113,6 +116,9 @@ class ProductsController extends Controller
                 $product->product_video = $videoName;
             }
         }
+        // calculate final price
+        // Final Price=Product Price−(Product Price× Discount/100)
+
            
             $product->category_id = $data['category_id'];
             $product->brand_id = $data['brand_id'];
@@ -123,6 +129,7 @@ class ProductsController extends Controller
             $product->group_code = $data['group_code'];
             $product->product_price = $data['product_price'];
             $product->product_discount = isset($data['product_discount']) ? $data['product_discount'] : 0;
+            $product->final_price = $data['final_price'];
             $product->product_weight = isset($data['product_weight']) ? $data['product_weight'] : 0;
             $product->description = isset($data['description']) ? $data['description'] :0;
             $product->washcare = $data['washcare'];

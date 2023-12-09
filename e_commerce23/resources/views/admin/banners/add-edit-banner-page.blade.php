@@ -73,10 +73,9 @@
                                     <label for="type">Banner Type*</label>
                                     <select name="type" id="type">
                                         <option value="">--select--</option>
-                                        <option value="fix1" {{ ($banner['type'] ?? '') == 'fix1' ? 'selected' : '' }}>fix 1</option>
-                                        <option value="fix2" {{ ($banner['type'] ?? '') == 'fix2' ? 'selected' : '' }}>fix 2</option>
-                                        <option value="fix3" {{ ($banner['type'] ?? '') == 'fix3' ? 'selected' : '' }}>fix 3</option>
-                                        <option value="fix4" {{ ($banner['type'] ?? '') == 'fix4' ? 'selected' : '' }}>fix 4</option>
+                                        <option value="fix" @if(!empty($banner['type']) && $banner['type'] == 'fix') selected @endif>fix</option>
+                                        <option value="slider" @if(!empty($banner['type']) && $banner['type'] == 'slider') selected @endif>slider</option>
+                                        
                                     </select>
                                 </div>                                
                                 

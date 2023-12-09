@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\admin\ProductsController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CmsController;
+use App\Http\Controllers\front\IndexController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 /*
@@ -20,9 +21,9 @@ use App\Http\Controllers\MainController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function(){
@@ -92,3 +93,10 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
 
 // Route::get('login',[MainController::class,'login']);
 // Route::get('dashboard',[MainController::class,'dashboard']);
+
+
+
+// frontend 
+Route::namespace('App\Http\Controllers\front')->group(function(){
+    Route::get('/',[IndexController::class,'index']);
+});
