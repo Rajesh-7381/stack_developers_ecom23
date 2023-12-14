@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -48,7 +49,7 @@ class Category extends Model
     //         ->where('status', 1)
     //         ->get()
     //         ->toArray();
-        
+
     //     // Output the fetched categories (for demonstration purposes)
     //     // dd($getcategories);
     //     return $getcategories;
@@ -56,16 +57,48 @@ class Category extends Model
     public static function getcategories()
     {
         // Retrieve categories with their subcategories where the parent_id is 0 and status is 1
-        $getcategories = Category::with(['subcategories'=>function($query){
+        $getcategories = Category::with(['subcategories' => function ($query) {
             $query->with('subcategories');
         }])
             ->where('parent_id', 0)
             ->where('status', 1)
             ->get()
             ->toArray();
-        
+
         // Output the fetched categories (for demonstration purposes)
         // dd($getcategories);
         return $getcategories;
     }
+
+    // frontend 
+//     public static function categoryDetails($url)
+// {
+//     $categoryDetails = Category::select('id', 'category_name', 'url')
+//         ->with('subcategories')
+//         ->where('url', $url)
+//         ->first();
+//         // echo "<pre>";print_r($categoryDetails);die;
+//         // dd($categoryDetails);
+
+//     return $categoryDetails; // Return the fetched category details
+// }
+public static function categoryDetails($url)
+    {
+        $categoryDetails = Category::select('id', 'category_name', 'url')->with('subcategories')->where('url', $url)->first()->toArray();
+        //  here is the example to search dynamic category url         (http://127.0.0.1:8000/sample-category-1) replace sample-category-1 to paste actual url
+        // echo "<pre>";print_r($categoryDetails);die;
+        
+        // dd($categoryDetails);
+        $catIds=array();
+        $catIds[]=$categoryDetails['id'];
+        // dd($catIds);
+        foreach($categoryDetails['subcategories'] as $subcat){
+            $catIds[]=$subcat['id'];
+        }
+
+        // return $categoryDetails;
+        return array('catIds'=>$catIds,'categoryDetails'=>$categoryDetails);
+       
+    }
+
 }

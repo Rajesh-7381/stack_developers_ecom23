@@ -160,7 +160,12 @@
                                     <div class="product-o product-o--hover-on product-o--radius">
                                         <div class="product-o__wrap">
                                             <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-                                            <img class="aspect__img" src="" alt=""></a>
+                                                @if(isset($product['images'][0]['image']) && !empty($product['images'][0]['image']))
+                                                    <img class="aspect__img" src="{{ asset('admin-assets/front/products/small/'.$product['images'][0]['image']) }}" alt="">
+                                                @else
+                                                    <img class="aspect__img" src="{{ asset('admin-assets/front/products/small/'.$product['images'][0]['image']) }}" alt="">
+                                                @endif
+                                            </a>                                            
                                         </div>
                                         <span class="product-o__category">
                                         <a href="shop-side-version-2.html">{{$product['brand']['brand_name']}}</a></span>
@@ -180,6 +185,98 @@
                                     </div>
                                 </div>                                                                 
                                 @endforeach                               
+                                @foreach($getBestSellers as $product)
+                                
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item bestsellers">
+                                    <div class="product-o product-o--hover-on product-o--radius">
+                                        <div class="product-o__wrap">
+                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
+                                                @if(isset($product['images'][0]['image']) && !empty($product['images'][0]['image']))
+                                                    <img class="aspect__img" src="{{ asset('admin-assets/front/products/small/'.$product['images'][0]['image']) }}" alt="">
+                                                @else
+                                                    {{-- <img class="aspect__img" src="{{ asset('admin-assets/front/products/small/'.$product['images'][0]['image']) }}" alt=""> --}}
+                                                @endif
+                                            </a>                                            
+                                        </div>
+                                        <span class="product-o__category">
+                                            {{-- below line i comented myself  otherwise shown error--}}
+                                        {{-- <a href="shop-side-version-2.html">{{$product['brand']['brand_name']}}</a></span> --}}
+                                        <span class="product-o__name">
+                                        <a href="product-detail.html">{{$product['product_name']}}</a></span>
+                                        <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                            <span class="product-o__review">(25)</span>
+                                        </div>
+                                        <span class="product-o__price">₹
+                                            {{$product['final_price'] }}
+                                                
+                                                @if($product['discount_type'] == null) 
+                                                {{-- @if($product['discount_type'] == null)  {{it is correct according stack developer but in my case shown discount type is null in mt db thats why we change  condition --}}
+                                                    <span class="product-o__discount">₹{{ $product['product_price'] }}</span></span>                                      
+                                                @endif
+                                          
+                                    </div>
+                                </div>                                                                 
+                                @endforeach 
+                                @foreach($discountedProducts as $product)
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item discountedproducts">
+                                    <div class="product-o product-o--hover-on product-o--radius">
+                                        <div class="product-o__wrap">
+                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
+                                                @if(isset($product['images'][0]['image']) && !empty($product['images'][0]['image']))
+                                                    <img class="aspect__img" src="{{ asset('admin-assets/front/products/small/'.$product['images'][0]['image']) }}" alt="">
+                                                @else
+                                                @endif
+                                            </a>                                            
+                                        </div>
+                                        <span class="product-o__category">
+                                            {{-- below line i comented myself  otherwise shown error--}}
+                                        {{-- <a href="shop-side-version-2.html">{{$product['brand']['brand_name']}}</a></span> --}}
+                                        <span class="product-o__name">
+                                        <a href="product-detail.html">{{$product['product_name']}}</a></span>
+                                        <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                            <span class="product-o__review">(25)</span>
+                                        </div>
+                                        <span class="product-o__price">₹
+                                            {{$product['final_price'] }}
+                                                
+                                                @if($product['discount_type'] == null) 
+                                                {{-- @if($product['discount_type'] == null)  {{it is correct according stack developer but in my case shown discount type is null in mt db thats why we change  condition --}}
+                                                    <span class="product-o__discount">₹{{ $product['product_price'] }}</span></span>                                      
+                                                @endif
+                                    </div>
+                                </div>
+                                @endforeach
+                                @foreach($featuredproduts as $product)
+                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item featuredproducts">
+                                    <div class="product-o product-o--hover-on product-o--radius">
+                                        <div class="product-o__wrap">
+                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
+                                                @if(isset($product['images'][0]['image']) && !empty($product['images'][0]['image']))
+                                                    <img class="aspect__img" src="{{ asset('admin-assets/front/products/small/'.$product['images'][0]['image']) }}" alt="">
+                                                @else
+                                                  <img class="aspect__img" src="{{ asset('admin-assets/front/products/small/.sitemakers-tshirt.png') }}" alt="">
+
+                                                @endif
+                                            </a>                                            
+                                        </div>
+                                        <span class="product-o__category">
+                                            {{-- below line i comented myself  otherwise shown error--}}
+                                        <a href="shop-side-version-2.html">{{$product['brand']['brand_name']}}</a></span>
+                                        <span class="product-o__name">
+                                        <a href="product-detail.html">{{$product['product_name']}}</a></span>
+                                        <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                            <span class="product-o__review">(25)</span>
+                                        </div>
+                                        <span class="product-o__price">₹
+                                            {{$product['final_price'] }}
+                                                
+                                                @if($product['discount_type'] == null) 
+                                                {{-- @if($product['discount_type'] == null)  {{it is correct according stack developer but in my case shown discount type is null in mt db thats why we change  condition --}}
+                                                    <span class="product-o__discount">₹{{ $product['product_price'] }}</span></span>                                      
+                                                @endif
+                                    </div>
+                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>

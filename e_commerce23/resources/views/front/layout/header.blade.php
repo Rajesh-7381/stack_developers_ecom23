@@ -788,7 +788,7 @@ $categories=Category::getcategories();
                                         <ul style="width:118px">
                                             @foreach($subcategory['subcategories'] as $subcategories)
                                             <li>
-                                                <a href="{{$subsubcategory['url']}}">{{$subsubcategory['category_name']}}></>
+                                                <a href="{{$subcategories['url']}}">{{$subcategories['category_name']}}></>
                                             </li>
                                             @endforeach
                                         </ul>

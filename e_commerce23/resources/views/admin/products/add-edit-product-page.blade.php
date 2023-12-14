@@ -392,6 +392,13 @@
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
+                                <div class="form-group">
+                                    <label for="is_bestseller">Best Seller </label>
+                                    <input type="checkbox" value="Yes" id="is_bestseller" name="is_bestseller" @if(isset($product) && $product->is_bestseller == 'Yes') checked @endif>
+                                    @error('is_bestseller')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
                                 
                             </div>
                             <!-- /.card-body -->

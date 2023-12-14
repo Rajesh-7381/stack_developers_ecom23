@@ -8,8 +8,11 @@ use App\Http\Controllers\admin\ProductsController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CmsController;
 use App\Http\Controllers\front\IndexController;
+use App\Http\Controllers\frontend\productController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
+use App\Models\Category;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -99,4 +102,21 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
 // frontend 
 Route::namespace('App\Http\Controllers\front')->group(function(){
     Route::get('/',[IndexController::class,'index']);
+// In Laravel's Eloquent, the pluck() method is used to retrieve a list of values from a specific column in the database table query result. It transforms the query result into a simple array containing values from the specified column.
+
+    // listing Categories
+// Retrieving URLs of active categories from the 'categories' table
+$catURLs = Category::select('url') // Selecting only the 'url' column
+                ->where('status', 1) // Filtering rows where 'status' is equal to 1 (active categories)
+                ->get() // Executing the query and fetching the matching rows
+                ->pluck('url'); // Extracting an array of 'url' column values
+
+// $catURLs now contains an array of URLs from active categories in the database
+foreach ($catURLs as $key => $url) {
+    
+Route::get('{url}', [ProductController::class, 'listing'])
+->where('url', '.*'); // Wildcard route to capture all URLs
+}
+
+    // dd($catURLs);
 });

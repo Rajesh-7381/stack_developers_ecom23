@@ -65,3 +65,8 @@ After creating id and secret id
 15. in manually add product in product page  because frontend->index.blade.php->new arrivals depend  otherwise it shown error
 17.i had manually added ajax in prodcts.blade.php in admin side and final price field also in prodct controller 
 18.{{-- @if($product['discount_type'] == null)  {{it is correct according stack developer but in my case shown discount type is null in mt db thats why we change  condition --}} in frontend->index.bladde.php 
+19.add bestseller in products table and last 4 data to add or edit is_bestseller=yes otherwise data not shown.
+20.UPDATE products SET brand_id = 1 WHERE brand_id = 0;(this query run inside products table) mandatory
+21.featuredproduts (index.bladde.php )not worked
+22.wildcard route shown        //  here is the example to search dynamic category url         (http://127.0.0.1:8000/sample-category-1) replace sample-category-1 to paste actual url
+
