@@ -84,7 +84,7 @@ class Category extends Model
 // }
 public static function categoryDetails($url)
     {
-        $categoryDetails = Category::select('id', 'category_name', 'url')->with('subcategories')->where('url', $url)->first()->toArray();
+        $categoryDetails = Category::select('id', 'category_name','parent_id','url')->with('subcategories')->where('url', $url)->first()->toArray();
         //  here is the example to search dynamic category url         (http://127.0.0.1:8000/sample-category-1) replace sample-category-1 to paste actual url
         // echo "<pre>";print_r($categoryDetails);die;
         
@@ -95,9 +95,22 @@ public static function categoryDetails($url)
         foreach($categoryDetails['subcategories'] as $subcat){
             $catIds[]=$subcat['id'];
         }
+        // parent_id 0,1,2,3 we dont show any parent category
+        if($categoryDetails['parent_id']==0 || $categoryDetails['parent_id']==1 || $categoryDetails['parent_id']==2 || $categoryDetails['parent_id']==3){
+            // only show main category in breadcrumbs
+            $breadcrumbs = '<a class="gl-tag btn--e-brand-shadow" href="' . url($categoryDetails['url']) . '">' . $categoryDetails['category_name'] . '</a>';
+            // dd($breadcrumbs);
+        }else{
+            // show main and subcategory in breadcrumb
+            $parentCategory=Category::select('category_name','url')->where('id',$categoryDetails['parent_id'])->first()->toArray();
+            $breadcrumbs = '<a class="gl-tag btn--e-brand-shadow" href="' . url($parentCategory['url']) . '">' . $parentCategory['category_name'] . '</a>
+            <a class="gl-tag btn--e-brand-shadow" href="' . url($categoryDetails['url']) . '">' . $categoryDetails['category_name'] . '</a>';
+            // dd($breadcrumbs);
+
+        }
 
         // return $categoryDetails;
-        return array('catIds'=>$catIds,'categoryDetails'=>$categoryDetails);
+        return array('catIds'=>$catIds,'categoryDetails'=>$categoryDetails,'breadcrumbs'=>$breadcrumbs);
        
     }
 

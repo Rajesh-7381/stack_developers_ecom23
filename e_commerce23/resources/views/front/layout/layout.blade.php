@@ -57,6 +57,8 @@
         <script src="{{asset('frontend/js/jquery.shopnav.js')}}"></script>
         <!--====== App ======-->
         <script src="{{asset('frontend/js/app.js')}}"></script>
+        <script src="{{asset('frontend/js/custom.js')}}"></script>
+        <script src="{{asset('frontend/js/filters.js')}}"></script>
         <!--====== Noscript ======-->
         <noscript>
             <div class="app-setting">

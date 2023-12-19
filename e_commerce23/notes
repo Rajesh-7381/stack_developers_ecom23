@@ -70,3 +70,28 @@ After creating id and secret id
 21.featuredproduts (index.bladde.php )not worked
 22.wildcard route shown        //  here is the example to search dynamic category url         (http://127.0.0.1:8000/sample-category-1) replace sample-category-1 to paste actual url
 
+
+part-90 
+    ->laravel pagination
+    1.offset pagination
+        ->simplepaginate
+        ->paginate(when we call paginate it worked but bootstarp shown unusual and i try to correct using->providers->appserviceprovider.php) ->use Illuminate\Pagination\Paginator;  ->boot(Paginator::useBootstrap();) and also add inline css in front->prodcts->listing.blade.php (<style>
+                .pagination nav li{
+                    list-style: none;
+                    float: left;
+                    width: 20px;
+                }
+</style>)
+    2.cursor pagination  ()
+part-91
+    ->products filter 
+        ->with refresh page   sort by(newest items,best selling ,lowest items,highest items,featured items,discounted items)   
+        ->without refresh page (via ajax)     
+part-92
+    ->to add filters.js in public->frontend->js  
+    issue->when i try to  filtering it worked but page scroll not worked      
+part-93
+    ->PRODUCT FILTER VIA AJAX 
+    issue(part-94)   
+
+    using faker through data pass in products_filter table->php artisan db:seed --class=ProductsFiltersTableSeeder
