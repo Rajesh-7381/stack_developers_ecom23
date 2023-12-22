@@ -1,7 +1,14 @@
 <?php use App\Models\ProductFilter; 
+ use App\Models\Category; 
+
 $sizechecked = ''; // Initializing the variable
 $brandchecked = ''; // Initializing the variable
 $pricechecked = ''; // Initializing the variable
+
+$categories=Category::getcategories();
+$url = Route::getFacadeRoot()->current()->url;
+$categoryDetails = Category::categoryDetails($url);
+// dd($categoryDetails);
 ?>
 <div class="shop-w-master">
     <h1 class="shop-w-master__heading u-s-m-b-30"><i class="fas fa-filter u-s-m-r-8"></i>
@@ -18,114 +25,42 @@ $pricechecked = ''; // Initializing the variable
                 </div>
                 <div class="shop-w__wrap collapse show" id="s-category">
                     <ul class="shop-w__category-list gl-scroll">
-                        <li class="has-list">
-                            <a href="#">Clothing</a>
-                            <span class="js-shop-category-span is-expanded fas fa-plus u-s-m-l-6"></span>
-                            <ul style="display:block">
-                                <li class="has-list">
-
-                                    <a href="#">Men</a>
-
-                                    <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                    <ul>
-                                        <li>
-                                            <a href="#">T-Shirts</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Shirts</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Jeans</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Shorts</a>
-                                        </li>
+                        @foreach($categories as $category)
+                            <li class="has-list">
+                                <a href="#" style="background-color: blueviolet; color: chartreuse;">{{$category['category_name']}}</a>
+                                <span class="js-shop-category-span is-expanded fas fa-plus u-s-m-l-6"></span>
+                                @if(count($category['subcategories']))
+                                    <ul style="display: block;">
+                                        @foreach($category['subcategories'] as $subcategory)
+                                            <li 
+                                                @if(isset($categoryDetails['categoryDetails']['parentcategory']['category_name']) && $categoryDetails['categoryDetails']['parentcategory']['category_name'] == $subcategory['category_name'])
+                                                    style="color: chartreuse;"
+                                                @elseif(isset($categoryDetails['categoryDetails']['category_name']) && $categoryDetails['categoryDetails']['category_name'] == $subcategory['category_name'])
+                                                    style="color: darkturquoise;" class="has-list"
+                                                @endif
+                                            >
+                                                <a href="{{url($subcategory['url'])}}">{{$subcategory['category_name']}}</a>
+                                                <span class="js-shop-category-span fas @if(count($subcategory['subcategories'])) fa-plus @endif u-s-m-l-6"></span>
+                                                @if(count($subcategory['subcategories']))
+                                                    <ul class="sub-subcategories">
+                                                        @foreach($subcategory['subcategories'] as $subsubCategory)
+                                                            <li class="sub-subcategory">
+                                                                <a href="{{$subsubCategory['url']}}">{{$subsubCategory['category_name']}}</a>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                            </li>
+                                        @endforeach
                                     </ul>
-                                </li>
-                                <li class="has-list">
-
-                                    <a href="#">Women</a>
-
-                                    <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                    <ul>
-                                        <li>
-                                            <a href="#">Tops</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Dresses</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Shorts</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="has-list">
-                                    <a href="#">Kids</a>
-                                    <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                    <ul>
-                                        <li>
-                                            <a href="#">T-Shirts</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Shirts</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Shorts</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="has-list">
-                                    <a href="#">Dummy</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="has-list">
-                            <a href="#">Electronics</a>
-                            <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                            <ul>
-                                <li class="has-list">
-                                    <a href="#">Mobiles</a>
-                                    <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                    <ul>
-                                        <li>
-                                            <a href="#">Smartphones</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Accessories</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="has-list">
-                                    <a href="#">Laptops</a>
-                                    <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                                    <ul>
-                                        <li>
-                                            <a href="#">Laptops</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Tablets</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Accessories</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="has-list">
-                            <a href="#">Appliances</a>
-                            <span class="js-shop-category-span fas fa-plus u-s-m-l-6"></span>
-                            <ul>
-                                <li class="has-list">
-                                    <a href="#">Air Conditioners</a>
-                                </li>
-                                <li class="has-list">
-                                    <a href="#">Refrigerators</a>
-                                </li>
-                            </ul>
-                        </li>
+                                @endif
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
+                
+                
+                
             </div>
         </div>
         <div class="u-s-m-b-30">
@@ -371,59 +306,58 @@ $pricechecked = ''; // Initializing the variable
                 </div>
             </div>
         </div>
+        <?php $getDynamicFilters=productFilter::getDynamicFilters($categoryDetails['catIds']); ?>
+        @foreach($getDynamicFilters as $key => $filter)
+            
         <div class="u-s-m-b-30">
             <div class="shop-w shop-w--style">
                 <div class="shop-w__intro-wrap">
-                    <h1 class="shop-w__h">FABRIC</h1>
+                    <h1 class="shop-w__h">{{ ucwords($filter)}}</h1>
 
-                    <span class="fas fa-minus collapsed shop-w__toggle" data-target="#s-fabric"
+                    <span class="fas fa-minus  shop-w__toggle" data-target="#s-filter{{$key}}"
                         data-toggle="collapse"></span>
                 </div>
-                <div class="shop-w__wrap collapse" id="s-fabric">
+                <div class="shop-w__wrap collapse show" id="s-filter{{$key}}">
                     <ul class="shop-w__list gl-scroll">
+                        <?php $filtervalues=productFilter::selectedFilters($filter,$categoryDetails['catIds']); ?>
+                        @foreach($filtervalues as $key => $filtervalue)
+                        @php
+                        $checkfilter = "";
+                    @endphp
+                    
+                    @if(null !== ($_GET[$filter] ?? null))
+                        @php
+                            $explodeFilters = explode('~', $_GET[$filter]);
+                        @endphp
+                    
+                        @if(in_array($filtervalue, $explodeFilters))
+                            @php
+                                $checkfilter = "checked";
+                            @endphp
+                        @endif
+                    @endif
+                    
+
                         <li>
 
                             <!--====== Check Box ======-->
                             <div class="check-box">
 
-                                <input type="checkbox" id="xs">
+                                <input type="checkbox" id="filter{{$key}}" name="{{$filter}}" value="{{$filtervalue}}" class="filterAjax">
                                 <div class="check-box__state check-box__state--primary">
 
-                                    <label class="check-box__label" for="xs">Cotton</label>
+                                    <label class="check-box__label" for="filter{{$key}}">{{$filtervalue}}</label>
                                 </div>
                             </div>
                             <!--====== End - Check Box ======-->
                         </li>
-                        <li>
-
-                            <!--====== Check Box ======-->
-                            <div class="check-box">
-
-                                <input type="checkbox" id="small">
-                                <div class="check-box__state check-box__state--primary">
-
-                                    <label class="check-box__label" for="small">Polyester</label>
-                                </div>
-                            </div>
-                            <!--====== End - Check Box ======-->
-                        </li>
-                        <li>
-
-                            <!--====== Check Box ======-->
-                            <div class="check-box">
-
-                                <input type="checkbox" id="medium">
-                                <div class="check-box__state check-box__state--primary">
-
-                                    <label class="check-box__label" for="medium">Wool</label>
-                                </div>
-                            </div>
-                            <!--====== End - Check Box ======-->
-                        </li>
+                        @endforeach
+                        
 
                     </ul>
                 </div>
             </div>
         </div>
+        @endforeach
     </div>
 </div>

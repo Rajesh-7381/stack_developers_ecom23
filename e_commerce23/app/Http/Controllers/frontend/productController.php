@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Category;
+use App\Models\ProductFilter;
 use App\Models\Products;
 use Illuminate\Support\Facades\View;
 
@@ -103,8 +104,20 @@ class productController extends Controller
                 $count=count($prices);
                 $categoryproducts->whereBetween('products.final_price', [$prices[0], $prices[$count - 1]]);
             }
-
-            $categoryproducts = $categoryproducts->paginate(2);
+            // update query for dynamic filters
+                $filterTypes=ProductFilter::filterTypes();
+                // dd($filterTypes);
+                foreach($filterTypes as $key => $filter){
+                    // dd($filter);
+                    if($request->$filter){
+                        $explodefiltervals=explode('~',$request->$filter);
+                        // dd($explodefiltervals);
+                        $categoryproducts->whereIn($filter,$explodefiltervals);
+                        // dd($categoryproducts);
+                    }
+                }               
+                
+            $categoryproducts = $categoryproducts->paginate(8);
             if ($request->ajax()) {
                 return response()->json([
                     'view' => (String)View::make('front.products.ajax_product_listing')

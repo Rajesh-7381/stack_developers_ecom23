@@ -84,7 +84,7 @@ class Category extends Model
 // }
 public static function categoryDetails($url)
     {
-        $categoryDetails = Category::select('id', 'category_name','parent_id','url')->with('subcategories')->where('url', $url)->first()->toArray();
+        $categoryDetails = Category::select('id', 'category_name','parent_id','url')->with('subcategories','parentcategory')->where('url', $url)->first()->toArray();
         //  here is the example to search dynamic category url         (http://127.0.0.1:8000/sample-category-1) replace sample-category-1 to paste actual url
         // echo "<pre>";print_r($categoryDetails);die;
         

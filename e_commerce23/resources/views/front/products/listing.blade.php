@@ -90,11 +90,26 @@
     if(!isset($_GET['price'])){
         $_GET['price']="";
     }
+    if(!isset($_GET['fabric'])){
+        $_GET['fabric']="";
+    }
+    if(!isset($_GET['fit'])){
+        $_GET['fit']="";
+    }
+    if(!isset($_GET['sleeve'])){
+        $_GET['sleeve']="";
+    }
+    if(!isset($_GET['pattern'])){
+        $_GET['pattern']="";
+    }
+    if(!isset($_GET['occassion'])){
+        $_GET['occassion']="";
+    }
 
     ?>
   
         <!--====== Pagination ======-->                          
-        {{$categoryproducts->appends(request()->only('sort', 'color','size','brand','price'))->links()}}
+        {{$categoryproducts->appends(request()->only('sort', 'color','size','brand','price','occassion','pattern','sleeve','fabric','fit'))->links()}}
                
         <!--====== End - Pagination ======-->
 </div>

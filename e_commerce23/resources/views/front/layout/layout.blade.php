@@ -59,6 +59,7 @@
         <script src="{{asset('frontend/js/app.js')}}"></script>
         <script src="{{asset('frontend/js/custom.js')}}"></script>
         <script src="{{asset('frontend/js/filters.js')}}"></script>
+        <script src="{{asset('frontend/js/dynamic.js')}}"></script>
         <!--====== Noscript ======-->
         <noscript>
             <div class="app-setting">
