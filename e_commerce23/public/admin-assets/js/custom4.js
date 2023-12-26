@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function () {
     $(document).on("click", ".confirmdelete", function () {
         var record = $(this).attr("record");
         var record_id = $(this).attr("record_id");
@@ -9,7 +9,7 @@ $(document).ready(function(){
             },
             buttonsStyling: false,
         });
-  
+
         swalWithBootstrapButtons
             .fire({
                 title: "Are you sure?",
@@ -23,13 +23,14 @@ $(document).ready(function(){
             .then((result) => {
                 if (result.isConfirmed) {
                     // Redirect only if confirmed
-                    
-                      swalWithBootstrapButtons.fire(
-                          "Deleted!",
-                          "Your file has been deleted.",
-                          "success"
-                      );
-                    window.location.href = "/admin/delete-" + record + "/" + record_id;
+
+                    swalWithBootstrapButtons.fire(
+                        "Deleted!",
+                        "Your file has been deleted.",
+                        "success"
+                    );
+                    window.location.href =
+                        "/admin/delete-" + record + "/" + record_id;
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     swalWithBootstrapButtons.fire(
                         "Cancelled",
@@ -39,7 +40,4 @@ $(document).ready(function(){
                 }
             });
     });
-  });
-  
-  
-  
+});

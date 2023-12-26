@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="SiteMakers.in">
+        <meta name="csrf-token" content="{{csrf_token()}}">
         <link href="{{asset('frontend/images/favicon.png')}}" rel="shortcut icon">
         <title>Laravel E-commerce Template - By SiteMakers.in</title>
         <!--====== Google Font ======-->
@@ -59,7 +60,7 @@
         <script src="{{asset('frontend/js/app.js')}}"></script>
         <script src="{{asset('frontend/js/custom.js')}}"></script>
         <script src="{{asset('frontend/js/filters.js')}}"></script>
-        <script src="{{asset('frontend/js/dynamic.js')}}"></script>
+        {{-- <script src="{{asset('frontend/js/dynamic.js')}}"></script> --}}
         <!--====== Noscript ======-->
         <noscript>
             <div class="app-setting">

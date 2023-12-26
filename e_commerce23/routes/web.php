@@ -101,7 +101,9 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
 
 // frontend 
 Route::namespace('App\Http\Controllers\front')->group(function(){
-    Route::get('/',[IndexController::class,'index']);
+    Route::get('/',[IndexController::class,'index'])->name('fronthome');
+    Route::get('product/{id}',[ProductController::class,'detail']);
+    
 // In Laravel's Eloquent, the pluck() method is used to retrieve a list of values from a specific column in the database table query result. It transforms the query result into a simple array containing values from the specified column.
 
     // listing Categories
@@ -119,4 +121,8 @@ Route::get('{url}', [ProductController::class, 'listing'])
 }
 
     // dd($catURLs);
+    // get product attribute price
+    Route::post('/get-attribute-price', [ProductController::class, 'getAttributePrice']);
+
+    
 });

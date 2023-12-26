@@ -95,3 +95,10 @@ part-93
     issue(part-94)   
 
     using faker through data pass in products_filter table->php artisan db:seed --class=ProductsFiltersTableSeeder
+part-103
+    ->dynmically show size wise product value via ajax
+    ->1st priority if there is product discount
+    ->2nd if  there is category discount
+    ->3rd if there is brand discount
+    ->4th if there is no discount
+    ->its worked but completely not worked 

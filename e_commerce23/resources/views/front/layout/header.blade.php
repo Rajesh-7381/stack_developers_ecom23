@@ -823,7 +823,7 @@ $categories=Category::getcategories();
                         <!--====== List ======-->
                         <ul class="ah-list ah-list--design1 ah-list--link-color-secondary">
                             <li>
-                                <a href="index.html"><i class="fas fa-home u-c-brand"></i></a>
+                                <a href="{{route('fronthome')}}"><i class="fas fa-home u-c-brand"></i></a>
                             </li>
                             <li>
                                 <a href="wishlist.html"><i class="far fa-heart"></i></a>
