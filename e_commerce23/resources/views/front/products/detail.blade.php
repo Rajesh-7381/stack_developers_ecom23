@@ -57,6 +57,8 @@
                     <!--====== Product Right Side Details ======-->
                     <div class="pd-detail">
                         <div>
+                            <div class="print-err-msg" style="display: none;"></div>
+                            <div class="print-successs-msg" style="display: none;"></div>
 
                             <span class="pd-detail__name">{{$productDetails['product_name']}}</span></div>
                         <div>
@@ -66,11 +68,12 @@
 
                                 @if(isset($productDetails['discount_type']))
                                 <span class="pd-detail__discount">@isset($productDetails['product_discount']) ({{ $productDetails['product_discount'] }}% OFF) @else 15 % OFF @endisset</span>
-                            @endif
+                                @endif
                         
-                            @if(isset($productDetails['product_price']))
+                                @if(isset($productDetails['product_price']))
                                 <del class="pd-detail__del">₹{{ $productDetails['product_price'] }}</del>
-                            @endif      
+                                @endif 
+                                
                         <div class="u-s-m-b-15">
                             <div class="pd-detail__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
 
@@ -118,7 +121,8 @@
                         </div>
                         
                         <div class="u-s-m-b-15">
-                            <form class="pd-detail__form">
+                            <form id="addToCart" name="addToCart" class="pd-detail__form" action="javascript:;">
+                                <input type="hidden" name="product_id" value="{{$productDetails['id']}}">
                                 @if(count($groupProducts) > 0)
                                 <div class="u-s-m-b-15">
 
@@ -143,7 +147,7 @@
                                         
                                         <div class="size__radio">
 
-                                            <input type="radio" id="{{$attributes['size']}}" name="size" value="{{$attributes['size']}}" product-id="{{$productDetails['id']}}" class="getPrice" checked>
+                                            <input type="radio" id="{{$attributes['size']}}" name="size" value="{{$attributes['size']}}" product-id="{{$productDetails['id']}}" class="getPrice" checked required>
 
                                             <label class="size__radio-label" for="{{$attributes['size']}}">{{$attributes['size']}}</label>
                                         </div>
@@ -159,7 +163,7 @@
 
                                             <span class="input-counter__minus fas fa-minus"></span>
 
-                                            <input class="input-counter__text input-counter--text-primary-style" type="text" value="1" data-min="1" data-max="1000">
+                                            <input class="input-counter__text input-counter--text-primary-style" type="text" value="1" data-min="1" data-max="1000" name="qty" id="qty">
 
                                             <span class="input-counter__plus fas fa-plus"></span></div>
                                         <!--====== End - Input Counter ======-->
@@ -634,9 +638,9 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="section__text-wrap">
-                            <h1 class="section__heading u-c-secondary u-s-m-b-12">CUSTOMER ALSO VIEWED</h1>
+                            <h1 class="section__heading u-c-secondary u-s-m-b-12">RELATED PRODUCTS</h1>
 
-                            <span class="section__span u-c-grey">PRODUCTS THAT CUSTOMER VIEWED</span>
+                            <span class="section__span u-c-grey">PRODUCTS THAT YPU ALSO LIKE TO BUY</span>
                         </div>
                     </div>
                 </div>
@@ -650,132 +654,134 @@
             <div class="container">
                 <div class="slider-fouc">
                     <div class="owl-carousel product-slider" data-item="4">
+                        @foreach($relatedProducts as  $Product)
+                        
                         <div class="u-s-m-b-30">
                             <div class="product-o product-o--hover-on">
                                 <div class="product-o__wrap">
-                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-                                        <img class="aspect__img" src="{{asset('frontend/images/product/sitemakers-tshirt.png')}}" alt="">
+                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="">
+                                    {{-- <a class="aspect aspect--bg-grey aspect--square u-d-block" href="{{url('product/'.$product['id'])}}"> --}}
+                                        @if(isset($product['images'][0]['image']) && !empty($product['images'][0]['image']))
+                                            <img class="aspect__img" src="{{ asset('admin-assets/front/products/small/'.$product['images'][0]['image']) }}" alt="">
+                                        @else
+                                            <img class="aspect__img" src="{{ asset('admin-assets/front/products/small/.sitemakers-tshirt.png') }}" alt="">
+
+                                        @endif
                                     </a>
                                 </div>
                                 <span class="product-o__category">
-                                    <a href="shop-side-version-2.html">Brand Name</a></span>
+                                    <a href="">@if(isset($product['brand']['brand_name']))
+                                        <a href="">{{$product['brand']['brand_name']}}</a>
+                                    @endif
+                                </a></span>
                                 <span class="product-o__name">
 
-                                    <a href="product-detail.html">Product Name</a></span>
+                                    <a href="">@if(isset($product['product_name']))
+                                    {{-- <a href="{{url('product/'.$product['id'])}}">@if(isset($product['product_name'])) --}}
+                                        <a href="">{{ $product['product_name'] }}</a>
+                                        {{-- <a href="{{ url('product/'.$product['id']) }}">{{ $product['product_name'] }}</a> --}}
+                                    @endif</a></span>
                                 <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
 
                                     <span class="product-o__review">(20)</span></div>
 
-                                <span class="product-o__price">₹900.00
-
-                                    <span class="product-o__discount">₹1000.00</span></span>
+                                    <span class="product-o__price">
+                                        @if(isset($product['final_price']))
+                                            ₹{{ $product['final_price'] }}
+                                            @if($product['discount_type'] == null)
+                                                <span class="product-o__discount">₹{{ $product['product_price'] }}</span>
+                                            @endif
+                                        @endif
+                                    </span>
+                                    
+                                    @if(isset($product['discount_type']) && $product['discount_type'] == null)
+                                    <span class="product-o__discount">₹{{ $product['product_price'] }}</span>
+                                @endif
+                                
                             </div>
+                        </div>                                                   
+                        @endforeach
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====== End - Section Content ======-->
+    </div>
+    <!--====== End - Section 1 ======-->
+    <!--====== End - Product Detail Tab ======-->
+    <div class="u-s-p-b-90">
+
+        <!--====== Section Intro ======-->
+        <div class="section__intro u-s-m-b-46">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section__text-wrap">
+                            <h1 class="section__heading u-c-secondary u-s-m-b-12">CUSTOMER ALSO VIEWED PRODUCTS</h1>
+{{-- 
+                            <span class="section__span u-c-grey">PRODUCTS THAT YPU ALSO LIKE TO BUY</span> --}}
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====== End - Section Intro ======-->
+
+
+        <!--====== Section Content ======-->
+        <div class="section__content">
+            <div class="container">
+                <div class="slider-fouc">
+                    <div class="owl-carousel product-slider" data-item="4">
+                        @foreach($recentlyproducts as  $Product)
+                        
                         <div class="u-s-m-b-30">
                             <div class="product-o product-o--hover-on">
                                 <div class="product-o__wrap">
-                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-                                         <img class="aspect__img" src="{{asset('frontend/images/product/sitemakers-tshirt.png')}}" alt="">
+                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="">
+                                    {{-- <a class="aspect aspect--bg-grey aspect--square u-d-block" href="{{url('product/'.$product['id'])}}"> --}}
+                                        @if(isset($product['images'][0]['image']) && !empty($product['images'][0]['image']))
+                                            <img class="aspect__img" src="{{ asset('admin-assets/front/products/small/'.$product['images'][0]['image']) }}" alt="">
+                                        @else
+                                            <img class="aspect__img" src="{{ asset('admin-assets/front/products/small/.sitemakers-tshirt.png') }}" alt="">
+
+                                        @endif
                                     </a>
                                 </div>
                                 <span class="product-o__category">
-                                    <a href="shop-side-version-2.html">Brand Name</a></span>
+                                    <a href="">@if(isset($product['brand']['brand_name']))
+                                        <a href="">{{$product['brand']['brand_name']}}</a>
+                                    @endif
+                                </a></span>
                                 <span class="product-o__name">
 
-                                    <a href="product-detail.html">Product Name</a></span>
+                                    <a href="">@if(isset($product['product_name']))
+                                    {{-- <a href="{{url('product/'.$product['id'])}}">@if(isset($product['product_name'])) --}}
+                                        <a href="">{{ $product['product_name'] }}</a>
+                                        {{-- <a href="{{ url('product/'.$product['id']) }}">{{ $product['product_name'] }}</a> --}}
+                                    @endif</a></span>
                                 <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
 
                                     <span class="product-o__review">(20)</span></div>
 
-                                <span class="product-o__price">₹900.00
-
-                                    <span class="product-o__discount">₹1000.00</span></span>
+                                    <span class="product-o__price">
+                                        @if(isset($product['final_price']))
+                                            ₹{{ $product['final_price'] }}
+                                            @if($product['discount_type'] == null)
+                                                <span class="product-o__discount">₹{{ $product['product_price'] }}</span>
+                                            @endif
+                                        @endif
+                                    </span>
+                                    
+                                    @if(isset($product['discount_type']) && $product['discount_type'] == null)
+                                    <span class="product-o__discount">₹{{ $product['product_price'] }}</span>
+                                @endif
+                                
                             </div>
-                        </div>
-                        <div class="u-s-m-b-30">
-                            <div class="product-o product-o--hover-on">
-                                <div class="product-o__wrap">
-                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-                                        <img class="aspect__img" src="{{asset('frontend/images/product/sitemakers-tshirt.png')}}" alt="">
-                                    </a>
-                                </div>
-                                <span class="product-o__category">
-                                    <a href="shop-side-version-2.html">Brand Name</a></span>
-                                <span class="product-o__name">
-
-                                    <a href="product-detail.html">Product Name</a></span>
-                                <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-
-                                    <span class="product-o__review">(20)</span></div>
-
-                                <span class="product-o__price">₹900.00
-
-                                    <span class="product-o__discount">₹1000.00</span></span>
-                            </div>
-                        </div>
-                        <div class="u-s-m-b-30">
-                            <div class="product-o product-o--hover-on">
-                                <div class="product-o__wrap">
-                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-                                        <img class="aspect__img" src="{{asset('frontend/images/product/sitemakers-tshirt.png')}}" alt="">
-                                    </a>
-                                </div>
-                                <span class="product-o__category">
-                                    <a href="shop-side-version-2.html">Brand Name</a></span>
-                                <span class="product-o__name">
-
-                                    <a href="product-detail.html">Product Name</a></span>
-                                <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-
-                                    <span class="product-o__review">(20)</span></div>
-
-                                <span class="product-o__price">₹900.00
-
-                                    <span class="product-o__discount">₹1000.00</span></span>
-                            </div>
-                        </div>
-                        <div class="u-s-m-b-30">
-                            <div class="product-o product-o--hover-on">
-                                <div class="product-o__wrap">
-                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-                                        <img class="aspect__img" src="{{asset('frontend/images/product/sitemakers-tshirt.png')}}" alt="">
-                                    </a>
-                                </div>
-                                <span class="product-o__category">
-                                    <a href="shop-side-version-2.html">Brand Name</a></span>
-                                <span class="product-o__name">
-
-                                    <a href="product-detail.html">Product Name</a></span>
-                                <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-
-                                    <span class="product-o__review">(20)</span></div>
-
-                                <span class="product-o__price">₹900.00
-
-                                    <span class="product-o__discount">₹1000.00</span></span>
-                            </div>
-                        </div>
-                        <div class="u-s-m-b-30">
-                            <div class="product-o product-o--hover-on">
-                                <div class="product-o__wrap">
-                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-                                        <img class="aspect__img" src="{{asset('frontend/images/product/sitemakers-tshirt.png')}}" alt="">
-                                    </a>
-                                </div>
-                                <span class="product-o__category">
-                                    <a href="shop-side-version-2.html">Brand Name</a></span>
-                                <span class="product-o__name">
-
-                                    <a href="product-detail.html">Product Name</a></span>
-                                <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-
-                                    <span class="product-o__review">(20)</span></div>
-
-                                <span class="product-o__price">₹900.00
-
-                                    <span class="product-o__discount">₹1000.00</span></span>
-                            </div>
-                        </div>
+                        </div>                                                   
+                        @endforeach
+                        
                     </div>
                 </div>
             </div>

@@ -102,3 +102,23 @@ part-103
     ->3rd if there is brand discount
     ->4th if there is no discount
     ->its worked but completely not worked 
+part-105
+    ->related products are not worked    
+part-106
+    ->CUSTOMER ALSO VIEWED PRODUCTS IMAGE NOT SHOWN   
+part-108
+    ->we will add below condition before adding product in cart
+    ->product size is not available
+    ->product size is not already exists in shopping cart 
+part->109
+    ->cart page functionality
+        ->convert shopping cart html to bladde
+        ->show cart items with image /details/price
+        ->update items quantity via ajax
+        ->update cart count via ajax
+        ->mini cart integrate
+        ->apply cuppon code (after user login/register)    
+part->114
+    ->quantity is not worked(productcontroller)         
+part->115
+    ->delete cart item  is  worked(but it need page refresh ajax not worked)         

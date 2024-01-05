@@ -8,6 +8,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="SiteMakers.in">
+        {{-- below meta tag refresh th epage every 5 second --}}
+        {{-- <meta http-equiv="refresh" content="5"> --}}
         <meta name="csrf-token" content="{{csrf_token()}}">
         <link href="{{asset('frontend/images/favicon.png')}}" rel="shortcut icon">
         <title>Laravel E-commerce Template - By SiteMakers.in</title>
@@ -19,6 +21,7 @@
         <link rel="stylesheet" href="{{asset('frontend/css/utility.css')}}">
         <!--====== App ======-->
         <link rel="stylesheet" href="{{asset('frontend/css/app.css')}}">
+        <link rel="stylesheet" href="{{asset('frontend/css/alert.css')}}">
     </head>
     <body class="config">
         <div class="preloader is-active">

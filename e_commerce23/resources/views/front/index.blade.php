@@ -163,7 +163,7 @@
                                                 @if(isset($product['images'][0]['image']) && !empty($product['images'][0]['image']))
                                                     <img class="aspect__img" src="{{ asset('admin-assets/front/products/small/'.$product['images'][0]['image']) }}" alt="">
                                                 @else
-                                                    <img class="aspect__img" src="{{ asset('admin-assets/front/products/small/'.$product['images'][0]['image']) }}" alt="">
+                                                    {{-- <img class="aspect__img" src="{{ asset('admin-assets/front/products/small/'.$product['images'][0]['image']) }}" alt=""> --}}
                                                 @endif
                                             </a>                                            
                                         </div>
