@@ -53,6 +53,7 @@ $(document).ready(function () {
             type: "post", // Change to POST request
             success: function (resp) {
                 // alert(resp['message'])
+                $(".totalcartitems").html(resp['totalcartitems']);
                 if (resp["status"] == true) {
                     $(".print-successs-msg").show();
                     $(".print-successs-msg").delay(2000).fadeOut('slow');
@@ -113,7 +114,9 @@ $(document).ready(function () {
             url: '/update-cart-item-qty',
             type: "POST",
             success: function(resp) {
+                $(".totalcartitems").html(resp.totalcartitems); //not worked
                 if(resp.status==false){
+                    
                     alert(resp.message);
                 }
                 
@@ -136,6 +139,7 @@ $(document).ready(function () {
             url: '/delete-cart-item',
             type: "POST", // Ensure that the request type is POST
             success: function(resp) {
+                $(".totalcartitems").html(resp.totalcartitems);
                 $('#appendcartitems').html(resp.view);
             },
             error: function() {

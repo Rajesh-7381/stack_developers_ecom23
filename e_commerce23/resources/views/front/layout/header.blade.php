@@ -3,11 +3,12 @@ use App\Models\Category;
 // get categories and subcategories
 $categories=Category::getcategories();
 // echo "<pre>"; print_r($getcategories); die;
+    $totalcartitems=totalcartitems();
 
 ?>
 
 <!--====== Main Header ======-->
- <header class="header--style-1">
+<header class="header--style-1">
     <!--====== Nav 1 ======-->
     <nav class="primary-nav primary-nav-wrapper--border">
         <div class="container">
@@ -15,18 +16,20 @@ $categories=Category::getcategories();
             <div class="primary-nav">
                 <!--====== Main Logo ======-->
                 <a class="main-logo" href="index.html">
-                <img src="{{asset('frontend/images/logo/logo-1.png')}}" alt=""></a>
+                    <img src="{{asset('frontend/images/logo/logo-1.png')}}" alt=""></a>
                 <!--====== End - Main Logo ======-->
                 <!--====== Search Form ======-->
                 <form class="main-form">
                     <label for="main-search"></label>
-                    <input class="input-text input-text--border-radius input-text--style-1" type="text" id="main-search" placeholder="Search">
+                    <input class="input-text input-text--border-radius input-text--style-1" type="text" id="main-search"
+                        placeholder="Search">
                     <button class="btn btn--icon fas fa-search main-search-button" type="submit"></button>
                 </form>
                 <!--====== End - Search Form ======-->
                 <!--====== Dropdown Main plugin ======-->
                 <div class="menu-init" id="navigation">
-                    <button class="btn btn--icon toggle-button toggle-button--secondary fas fa-cogs" type="button"></button>
+                    <button class="btn btn--icon toggle-button toggle-button--secondary fas fa-cogs"
+                        type="button"></button>
                     <!--====== Menu ======-->
                     <div class="ah-lg-mode">
                         <span class="ah-close">✕ Close</span>
@@ -39,19 +42,19 @@ $categories=Category::getcategories();
                                 <ul style="width:120px">
                                     <li>
                                         <a href="dashboard.html"><i class="fas fa-user-circle u-s-m-r-6"></i>
-                                        <span>Account</span></a>
+                                            <span>Account</span></a>
                                     </li>
                                     <li>
                                         <a href="signup.html"><i class="fas fa-user-plus u-s-m-r-6"></i>
-                                        <span>Signup</span></a>
+                                            <span>Signup</span></a>
                                     </li>
                                     <li>
                                         <a href="signin.html"><i class="fas fa-lock u-s-m-r-6"></i>
-                                        <span>Signin</span></a>
+                                            <span>Signin</span></a>
                                     </li>
                                     <li>
                                         <a href="signup.html"><i class="fas fa-lock-open u-s-m-r-6"></i>
-                                        <span>Signout</span></a>
+                                            <span>Signout</span></a>
                                     </li>
                                 </ul>
                                 <!--====== End - Dropdown ======-->
@@ -95,38 +98,41 @@ $categories=Category::getcategories();
                                         <div class="mega-menu-list">
                                             <ul>
                                                 <li class="js-active">
-                                                    <a href="shop-side-version-2.html"><i class="fas fa-tv u-s-m-r-6"></i>
-                                                    <span>Electronics</span></a>
+                                                    <a href="shop-side-version-2.html"><i
+                                                            class="fas fa-tv u-s-m-r-6"></i>
+                                                        <span>Electronics</span></a>
                                                     <span class="js-menu-toggle js-toggle-mark"></span>
                                                 </li>
                                                 <li>
-                                                    <a href="shop-side-version-2.html"><i class="fas fa-female u-s-m-r-6"></i>
-                                                    <span>Women's Clothing</span></a>
+                                                    <a href="shop-side-version-2.html"><i
+                                                            class="fas fa-female u-s-m-r-6"></i>
+                                                        <span>Women's Clothing</span></a>
                                                     <span class="js-menu-toggle"></span>
                                                 </li>
                                                 <li>
-                                                    <a href="shop-side-version-2.html"><i class="fas fa-male u-s-m-r-6"></i>
-                                                    <span>Men's Clothing</span></a>
+                                                    <a href="shop-side-version-2.html"><i
+                                                            class="fas fa-male u-s-m-r-6"></i>
+                                                        <span>Men's Clothing</span></a>
                                                     <span class="js-menu-toggle"></span>
                                                 </li>
                                                 <li>
                                                     <a href="index.html"><i class="fas fa-utensils u-s-m-r-6"></i>
-                                                    <span>Food & Supplies</span></a>
+                                                        <span>Food & Supplies</span></a>
                                                     <span class="js-menu-toggle"></span>
                                                 </li>
                                                 <li>
                                                     <a href="index.html"><i class="fas fa-couch u-s-m-r-6"></i>
-                                                    <span>Furniture & Decor</span></a>
+                                                        <span>Furniture & Decor</span></a>
                                                     <span class="js-menu-toggle"></span>
                                                 </li>
                                                 <li>
                                                     <a href="index.html"><i class="fas fa-football-ball u-s-m-r-6"></i>
-                                                    <span>Sports & Game</span></a>
+                                                        <span>Sports & Game</span></a>
                                                     <span class="js-menu-toggle"></span>
                                                 </li>
                                                 <li>
                                                     <a href="index.html"><i class="fas fa-heartbeat u-s-m-r-6"></i>
-                                                    <span>Beauty & Health</span></a>
+                                                        <span>Beauty & Health</span></a>
                                                     <span class="js-menu-toggle"></span>
                                                 </li>
                                             </ul>
@@ -147,10 +153,12 @@ $categories=Category::getcategories();
                                                             <a href="shop-side-version-2.html">3d Printing Pen</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop-side-version-2.html">3d Printing Accessories</a>
+                                                            <a href="shop-side-version-2.html">3d Printing
+                                                                Accessories</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop-side-version-2.html">3d Printer Module Board</a>
+                                                            <a href="shop-side-version-2.html">3d Printer Module
+                                                                Board</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -163,7 +171,8 @@ $categories=Category::getcategories();
                                                             <a href="shop-side-version-2.html">TV Boxes</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop-side-version-2.html">TC Receiver & Accessories</a>
+                                                            <a href="shop-side-version-2.html">TC Receiver &
+                                                                Accessories</a>
                                                         </li>
                                                         <li>
                                                             <a href="shop-side-version-2.html">Display Dongle</a>
@@ -195,16 +204,20 @@ $categories=Category::getcategories();
                                                 <div class="col-lg-3">
                                                     <ul>
                                                         <li class="mega-list-title">
-                                                            <a href="shop-side-version-2.html">VIDEO GAME ACCESSORIES</a>
+                                                            <a href="shop-side-version-2.html">VIDEO GAME
+                                                                ACCESSORIES</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop-side-version-2.html">Nintendo Video Games Accessories</a>
+                                                            <a href="shop-side-version-2.html">Nintendo Video Games
+                                                                Accessories</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop-side-version-2.html">Sony Video Games Accessories</a>
+                                                            <a href="shop-side-version-2.html">Sony Video Games
+                                                                Accessories</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop-side-version-2.html">Xbox Video Games Accessories</a>
+                                                            <a href="shop-side-version-2.html">Xbox Video Games
+                                                                Accessories</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -228,7 +241,8 @@ $categories=Category::getcategories();
                                                             <a href="shop-side-version-2.html">Security Gadgets</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop-side-version-2.html">CCTV Security & Accessories</a>
+                                                            <a href="shop-side-version-2.html">CCTV Security &
+                                                                Accessories</a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -241,7 +255,8 @@ $categories=Category::getcategories();
                                                             <a href="shop-side-version-2.html">Digital Cameras</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop-side-version-2.html">Sport Camera & Accessories</a>
+                                                            <a href="shop-side-version-2.html">Sport Camera &
+                                                                Accessories</a>
                                                         </li>
                                                         <li>
                                                             <a href="shop-side-version-2.html">Camera Accessories</a>
@@ -257,7 +272,8 @@ $categories=Category::getcategories();
                                                             <a href="shop-side-version-2.html">ARDUINO COMPATIBLE</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop-side-version-2.html">Raspberry Pi & Orange Pi</a>
+                                                            <a href="shop-side-version-2.html">Raspberry Pi & Orange
+                                                                Pi</a>
                                                         </li>
                                                         <li>
                                                             <a href="shop-side-version-2.html">Module Board</a>
@@ -316,7 +332,9 @@ $categories=Category::getcategories();
                                                 <div class="col-lg-9 mega-image">
                                                     <div class="mega-banner">
                                                         <a class="u-d-block" href="shop-side-version-2.html">
-                                                        <img class="u-img-fluid u-d-block" src="{{asset('frontend/images/banners/sitemaker-slider-banner-1.png')}}" alt=""></a>
+                                                            <img class="u-img-fluid u-d-block"
+                                                                src="{{asset('frontend/images/banners/sitemaker-slider-banner-1.png')}}"
+                                                                alt=""></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -330,13 +348,17 @@ $categories=Category::getcategories();
                                                 <div class="col-lg-6 mega-image">
                                                     <div class="mega-banner">
                                                         <a class="u-d-block" href="shop-side-version-2.html">
-                                                        <img class="u-img-fluid u-d-block" src="{{asset('frontend/images/banners/sitemaker-slider-banner-1.png')}}" alt=""></a>
+                                                            <img class="u-img-fluid u-d-block"
+                                                                src="{{asset('frontend/images/banners/sitemaker-slider-banner-1.png')}}"
+                                                                alt=""></a>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 mega-image">
                                                     <div class="mega-banner">
                                                         <a class="u-d-block" href="shop-side-version-2.html">
-                                                        <img class="u-img-fluid u-d-block" src="{{asset('frontend/images/banners/sitemaker-slider-banner-1.png')}}" alt=""></a>
+                                                            <img class="u-img-fluid u-d-block"
+                                                                src="{{asset('frontend/images/banners/sitemaker-slider-banner-1.png')}}"
+                                                                alt=""></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -509,13 +531,17 @@ $categories=Category::getcategories();
                                                 <div class="col-lg-9 mega-image">
                                                     <div class="mega-banner">
                                                         <a class="u-d-block" href="shop-side-version-2.html">
-                                                        <img class="u-img-fluid u-d-block" src="{{asset('frontend/images/banners/sitemaker-slider-banner-1.png')}}" alt=""></a>
+                                                            <img class="u-img-fluid u-d-block"
+                                                                src="{{asset('frontend/images/banners/sitemaker-slider-banner-1.png')}}"
+                                                                alt=""></a>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3 mega-image">
                                                     <div class="mega-banner">
                                                         <a class="u-d-block" href="shop-side-version-2.html">
-                                                        <img class="u-img-fluid u-d-block" src="{{asset('frontend/images/banners/sitemaker-slider-banner-1.png')}}" alt=""></a>
+                                                            <img class="u-img-fluid u-d-block"
+                                                                src="{{asset('frontend/images/banners/sitemaker-slider-banner-1.png')}}"
+                                                                alt=""></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -529,19 +555,25 @@ $categories=Category::getcategories();
                                                 <div class="col-lg-4 mega-image">
                                                     <div class="mega-banner">
                                                         <a class="u-d-block" href="shop-side-version-2.html">
-                                                        <img class="u-img-fluid u-d-block" src="{{asset('frontend/images/banners/sitemaker-slider-banner-1.png')}}" alt=""></a>
+                                                            <img class="u-img-fluid u-d-block"
+                                                                src="{{asset('frontend/images/banners/sitemaker-slider-banner-1.png')}}"
+                                                                alt=""></a>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4 mega-image">
                                                     <div class="mega-banner">
                                                         <a class="u-d-block" href="shop-side-version-2.html">
-                                                        <img class="u-img-fluid u-d-block" src="{{asset('frontend/images/banners/sitemaker-slider-banner-1.png')}}" alt=""></a>
+                                                            <img class="u-img-fluid u-d-block"
+                                                                src="{{asset('frontend/images/banners/sitemaker-slider-banner-1.png')}}"
+                                                                alt=""></a>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4 mega-image">
                                                     <div class="mega-banner">
                                                         <a class="u-d-block" href="shop-side-version-2.html">
-                                                        <img class="u-img-fluid u-d-block" src="{{asset('frontend/images/banners/sitemaker-slider-banner-1.png')}}" alt=""></a>
+                                                            <img class="u-img-fluid u-d-block"
+                                                                src="{{asset('frontend/images/banners/sitemaker-slider-banner-1.png')}}"
+                                                                alt=""></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -714,13 +746,17 @@ $categories=Category::getcategories();
                                                 <div class="col-lg-6 mega-image">
                                                     <div class="mega-banner">
                                                         <a class="u-d-block" href="shop-side-version-2.html">
-                                                        <img class="u-img-fluid u-d-block" src="{{asset('frontend/images/banners/sitemaker-slider-banner-1.png')}}" alt=""></a>
+                                                            <img class="u-img-fluid u-d-block"
+                                                                src="{{asset('frontend/images/banners/sitemaker-slider-banner-1.png')}}"
+                                                                alt=""></a>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 mega-image">
                                                     <div class="mega-banner">
                                                         <a class="u-d-block" href="shop-side-version-2.html">
-                                                        <img class="u-img-fluid u-d-block" src="{{asset('frontend/images/banners/sitemaker-slider-banner-1.png')}}" alt=""></a>
+                                                            <img class="u-img-fluid u-d-block"
+                                                                src="{{asset('frontend/images/banners/sitemaker-slider-banner-1.png')}}"
+                                                                alt=""></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -759,7 +795,8 @@ $categories=Category::getcategories();
                 <!--====== End - Dropdown Main plugin ======-->
                 <!--====== Dropdown Main plugin ======-->
                 <div class="menu-init" id="navigation2">
-                    <button class="btn btn--icon toggle-button toggle-button--secondary fas fa-cog" type="button"></button>
+                    <button class="btn btn--icon toggle-button toggle-button--secondary fas fa-cog"
+                        type="button"></button>
                     <!--====== Menu ======-->
                     <div class="ah-lg-mode">
                         <span class="ah-close">✕ Close</span>
@@ -769,26 +806,31 @@ $categories=Category::getcategories();
                                 <a href="shop-side-version-2.html">NEW ARRIVALS</a>
                             </li>
                             @foreach($categories as $category)
-                                
-                           
+
+
                             <li class="has-dropdown">
-                                <a href="{{url($category['url'])}}">{{$category['category_name']}} <i @if(count($category['subcategories'])) class="fas fa-angle-down u-s-m-l-6" @endif></i></a>
+                                <a href="{{url($category['url'])}}">{{$category['category_name']}} <i
+                                        @if(count($category['subcategories'])) class="fas fa-angle-down u-s-m-l-6"
+                                        @endif></i></a>
                                 @if(count($category['subcategories']))
-                                    
-                                
+
+
                                 <!--====== Dropdown ======-->
                                 <span class="js-menu-toggle"></span>
                                 <ul style="width:170px">
                                     @foreach($category['subcategories'] as $subcategory)
                                     <li class="has-dropdown has-dropdown--ul-left-100">
-                                        <a href="{{$subcategory['url']}}">{{$subcategory['category_name']}} @if(count($subcategory['subcategories'])) <i  class="fas fa-angle-down i-state-right u-s-m-l-6" >@endif</i></a>
+                                        <a href="{{$subcategory['url']}}">{{$subcategory['category_name']}}
+                                            @if(count($subcategory['subcategories'])) <i
+                                                class="fas fa-angle-down i-state-right u-s-m-l-6">@endif</i></a>
                                         <!--====== Dropdown ======-->
                                         @if(count($subcategory['subcategories']))
                                         <span class="js-menu-toggle"></span>
                                         <ul style="width:118px">
                                             @foreach($subcategory['subcategories'] as $subcategories)
                                             <li>
-                                                <a href="{{$subcategories['url']}}">{{$subcategories['category_name']}}></>
+                                                <a href="{{$subcategories['url']}}">{{$subcategories['category_name']}}>
+                                                    </>
                                             </li>
                                             @endforeach
                                         </ul>
@@ -796,14 +838,14 @@ $categories=Category::getcategories();
                                         @endif
                                     </li>
                                     @endforeach
-                                    
-                                    
+
+
                                 </ul>
                                 <!--====== End - Dropdown ======-->
                                 @endif
                             </li>
                             @endforeach
-                            
+
                             <li>
                                 <a href="listing.html">FEATURED PRODUCTS</a>
                             </li>
@@ -815,8 +857,11 @@ $categories=Category::getcategories();
                 <!--====== End - Dropdown Main plugin ======-->
                 <!--====== Dropdown Main plugin ======-->
                 <div class="menu-init" id="navigation3">
-                    <button class="btn btn--icon toggle-button toggle-button--secondary fas fa-shopping-bag toggle-button-shop" type="button"></button>
-                    <span class="total-item-round">2</span>
+                    <button
+                        class="btn btn--icon toggle-button toggle-button--secondary fas fa-shopping-bag toggle-button-shop"
+                        type="button"></button>
+                    <span class="total-item-round totalcartitems"><span
+                            class="totalcartitems">{{$totalcartitems}}</span></span>
                     <!--====== Menu ======-->
                     <div class="ah-lg-mode">
                         <span class="ah-close">✕ Close</span>
@@ -829,83 +874,12 @@ $categories=Category::getcategories();
                                 <a href="wishlist.html"><i class="far fa-heart"></i></a>
                             </li>
                             <li class="has-dropdown">
-                                <a class="mini-cart-shop-link"><i class="fas fa-shopping-bag"></i>
-                                <span class="total-item-round">3</span></a>
+                                <a class="mini-cart-shop-link "><i class="fas fa-shopping-bag"></i>
+                                    <span class="total-item-round totalcartitems">{{$totalcartitems}}</span></a>
                                 <!--====== Dropdown ======-->
                                 <span class="js-menu-toggle"></span>
-                                <div class="mini-cart">
-                                    <!--====== Mini Product Container ======-->
-                                    <div class="mini-product-container gl-scroll u-s-m-b-15">
-                                        <!--====== Card for mini cart ======-->
-                                        <div class="card-mini-product">
-                                            <div class="mini-product">
-                                                <div class="mini-product__image-wrapper">
-                                                    <a class="mini-product__link" href="product-detail.html">
-                                                    <img class="u-img-fluid" src="{{asset('frontend/images/product/sitemakers-tshirt.png')}}" alt=""></a>
-                                                </div>
-                                                <div class="mini-product__info-wrapper">
-                                                    <span class="mini-product__category">
-                                                    <a href="shop-side-version-2.html">Brand Name</a></span>
-                                                    <span class="mini-product__name">
-                                                    <a href="product-detail.html">Product Name</a></span>
-                                                    <span class="mini-product__quantity">1 x</span>
-                                                    <span class="mini-product__price">₹900</span>
-                                                </div>
-                                            </div>
-                                            <a class="mini-product__delete-link far fa-trash-alt"></a>
-                                        </div>
-                                        <!--====== End - Card for mini cart ======-->
-                                        <!--====== Card for mini cart ======-->
-                                        <div class="card-mini-product">
-                                            <div class="mini-product">
-                                                <div class="mini-product__image-wrapper">
-                                                    <a class="mini-product__link" href="product-detail.html">
-                                                    <img class="u-img-fluid" src="{{asset('frontend/images/product/sitemakers-tshirt.png')}}" alt=""></a>
-                                                </div>
-                                                <div class="mini-product__info-wrapper">
-                                                    <span class="mini-product__category">
-                                                    <a href="shop-side-version-2.html">Brand Name</a></span>
-                                                    <span class="mini-product__name">
-                                                    <a href="product-detail.html">Product Name</a></span>
-                                                    <span class="mini-product__quantity">1 x</span>
-                                                    <span class="mini-product__price">₹900</span>
-                                                </div>
-                                            </div>
-                                            <a class="mini-product__delete-link far fa-trash-alt"></a>
-                                        </div>
-                                        <!--====== End - Card for mini cart ======-->
-                                        <!--====== Card for mini cart ======-->
-                                        <div class="card-mini-product">
-                                            <div class="mini-product">
-                                                <div class="mini-product__image-wrapper">
-                                                    <a class="mini-product__link" href="product-detail.html">
-                                                    <img class="u-img-fluid" src="{{asset('frontend/images/product/sitemakers-tshirt.png')}}" alt=""></a>
-                                                </div>
-                                                <div class="mini-product__info-wrapper">
-                                                    <span class="mini-product__category">
-                                                    <a href="shop-side-version-2.html">Brand Name</a></span>
-                                                    <span class="mini-product__name">
-                                                    <a href="product-detail.html">Product Name</a></span>
-                                                    <span class="mini-product__quantity">1 x</span>
-                                                    <span class="mini-product__price">₹900</span>
-                                                </div>
-                                            </div>
-                                            <a class="mini-product__delete-link far fa-trash-alt"></a>
-                                        </div>
-                                        <!--====== End - Card for mini cart ======-->
-                                    </div>
-                                    <!--====== End - Mini Product Container ======-->
-                                    <!--====== Mini Product Statistics ======-->
-                                    <div class="mini-product-stat">
-                                        <div class="mini-total">
-                                            <span class="subtotal-text">SUBTOTAL</span>
-                                            <span class="subtotal-value">₹2700</span>
-                                        </div>
-                                        <div class="mini-action">
-                                            <a class="mini-link btn--e-brand-b-2" href="checkout.html">PROCEED TO CHECKOUT</a>
-                                            <a class="mini-link btn--e-transparent-secondary-b-2" href="cart.html">VIEW CART</a>
-                                        </div>
-                                    </div>
+                                <div class="mini-cart" id="appendminicartitems">
+                                    @include('front.layout.header_cartitems')
                                     <!--====== End - Mini Product Statistics ======-->
                                 </div>
                                 <!--====== End - Dropdown ======-->

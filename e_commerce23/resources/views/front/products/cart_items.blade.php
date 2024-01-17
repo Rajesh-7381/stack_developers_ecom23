@@ -86,15 +86,16 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <span class="table-p__price">₹{{ $item['product']['final_price'] * $item['product_qty']}}</span>
-                                            {{-- <div class="pd-detail__inline getAttributePrice ">
-
-                                                <span class="pd-detail__price ">  ₹{{ $getAttributePrice['final_price'] * $item['product_qty']}}</span>
-                
+                                            {{-- <span class="table-p__price">₹{{ $item['product']['final_price'] * $item['product_qty']}}</span> --}}
+                                            <div class="pd-detail__inline getAttributePrice">
+                                                <span class="pd-detail__price">₹{{ $getAttributePrice['final_price'] * $item['product_qty'] }}</span>
+                                                
                                                 @if($getAttributePrice['discount'] > 0)
-                                                <span class="pd-detail__discount">$getAttributePrice['discount_percent'] % OFF </span>
-                                                <del class="pd-detail__del">₹{{ $getAttributePrice['product_price'] * $item['product_qty']}}</del>
-                                                @endif  --}}
+                                                    <span class="pd-detail__discount">{{ $getAttributePrice['discount_percent'] }}% OFF </span>
+                                                    <del class="pd-detail__del">₹{{ $getAttributePrice['product_price'] * $item['product_qty'] }}</del>
+                                                @endif
+                                            </div>
+                                            
                                             </div>
                                         </td>
                                         <td>

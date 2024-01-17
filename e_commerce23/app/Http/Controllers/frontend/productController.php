@@ -263,13 +263,15 @@ class productController extends Controller
             $item->product_qty = $data['qty'];
             $item->save();
 
+            // get total cart items
+            $totalcartitems=totalcartitems();
             $message = 'Product added successfully! <a href="/cart" style="color:white; text-decoration:underline;"> View Cart</a>';
-            return response()->json(['status' => true, 'message' => $message]);
+            return response()->json(['status' => true, 'message' => $message,'totalcartitems'=>$totalcartitems]);
         }
     }
     public function cart()
     {
-        $getCartItems = Carts::getCartItems();
+        $getCartItems = getCartItems();
         // dd($getCartItems);
         return view('front.products.cart')->with(compact('getCartItems'));
     }
@@ -309,6 +311,7 @@ class productController extends Controller
                 $getCartItems = Carts::getCartItems();
                 return response()->json([
                     'status' => false,
+                    
                     'message' => 'product size is not available. please remove and choose another one!',
                     'view' => (string)View::make('front.products.cart_items')->with(compact('getCartItems'))
                 ]);
@@ -317,11 +320,14 @@ class productController extends Controller
             Carts::where('id', $data['cartid'])->update(['product_qty' => $data['qty']]);
             // get update cart item
             $getCartItems = Carts::getCartItems();
+            // get total cart items
+            $totalcartitems=totalcartitems();
 
             // dd($getCartItems);
             return response()->json([
                 'status' => true,
                 // 'message'=>'product stock is not available',
+                'totalcartitems'=>$totalcartitems,
                 'view' => (string)View::make('front.products.cart_items')->with(compact('getCartItems'))
             ]);
 
@@ -335,6 +341,10 @@ class productController extends Controller
             Carts::where('id', $data['cartid'])->delete();
             // update cart item
             $getCartItems = Carts::getCartItems();
+
+            // get total cart items
+            $totalcartitems=totalcartitems(); 
+
             // return update cart items
             return response()->json([
                 'status' => true,
