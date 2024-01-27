@@ -133,7 +133,7 @@
                                     <span>CONTINUE SHOPPING</span></a></div>
                             <div class="route-box__g2">
 
-                                <a class="route-box__link" href="cart.html"><i class="fas fa-trash"></i>
+                                <a class="route-box__link emptycart" href="javascript:;"><i class="fas fa-trash"></i>
                                     <span>CLEAR CART</span>
                                 </a>
 

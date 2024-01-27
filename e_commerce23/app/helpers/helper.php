@@ -27,4 +27,18 @@ function totalcartitems(){
     }
     return $getCartItems;
 }
+// for empty cart
+ function emptyCart(){
+    if(Auth::check()){
+        // if the user loggd in check from auth user_id
+        $user_id=Auth::user()->id;
+        Carts::with('product')->where('user_id',$user_id)->delete();
+    }else{
+        // if the user not logged in checked from session
+        $session_id=Session::get('session_id');
+        Carts::with('product')->where('session_id',$session_id)->delete();
+
+    }
+    // return $getCartItems;
+}
 ?>

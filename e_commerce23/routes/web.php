@@ -8,6 +8,7 @@ use App\Http\Controllers\admin\ProductsController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CmsController;
 use App\Http\Controllers\front\IndexController;
+use App\Http\Controllers\Front\UserController;
 use App\Http\Controllers\frontend\productController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
@@ -107,6 +108,16 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
     Route::get('cart', [ProductController::class, 'cart']);
     Route::post('update-cart-item-qty', [ProductController::class, 'updatecartitemQTY']);
     Route::post('/delete-cart-item', [ProductController::class, 'deletecartitem']);
+    Route::post('/empty-cart', [ProductController::class, 'emptycartitem']);
+    // user login
+    Route::match(['get','post'],'user/login', [UserController::class, 'userlogin'])->name('user.login');
+    // user register
+    Route::match(['get','post'],'user/register', [UserController::class, 'userRegister']);
+    // user confirm account
+    Route::match(['get', 'post'], 'user/confirm/{code}', [UserController::class, 'confirmAccount']);
+    // user logout
+    Route::get('user/logout', [UserController::class, 'logout']);
+
     // In Laravel's Eloquent, the pluck() method is used to retrieve a list of values from a specific column in the database table query result. It transforms the query result into a simple array containing values from the specified column.
 
     // listing Categories

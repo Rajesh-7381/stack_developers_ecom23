@@ -122,3 +122,15 @@ part->114
     ->quantity is not worked(productcontroller)         
 part->115
     ->delete cart item  is  worked(but it need page refresh ajax not worked)         
+part->117
+    ->when i want to increase quantity not increment and also price not be increase or decrease  
+part->118
+    ->cart item will be cleared after refreshing page 
+part->123
+    ->i had some changes in usercontroler in confirm account  and register page
+part->124
+    ->if user status 0 shown invalid and your account is not activate dyet!
+part->125
+    ->cookies stored data but not shown
+part->125
+    ->watch

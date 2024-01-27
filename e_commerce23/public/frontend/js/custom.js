@@ -53,6 +53,10 @@ $(document).ready(function () {
             type: "post", // Change to POST request
             success: function (resp) {
                 // alert(resp['message'])
+                $(".totalcartitems").html(resp.totalcartitems);
+                $('#appendcartitems').html(resp.view);
+                $('#appendminicartitems').html(resp.minicartview);
+
                 $(".totalcartitems").html(resp['totalcartitems']);
                 if (resp["status"] == true) {
                     $(".print-successs-msg").show();
@@ -141,6 +145,8 @@ $(document).ready(function () {
             success: function(resp) {
                 $(".totalcartitems").html(resp.totalcartitems);
                 $('#appendcartitems').html(resp.view);
+                // $('#appendcartitems').html(resp.view);
+                $('#appendminicartitems').html(resp.minicartview);
             },
             error: function() {
                 alert("Error!");
@@ -148,5 +154,119 @@ $(document).ready(function () {
         });
         
     })
+
+    // empty cart
+    $(document).on('click','.emptycart',function(){
+        // var cartid=$(this).data('cartid');
+        var result=confirm("Are you sure you want to empty cart item ?");
         
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+            },
+            // data: { cartid: cartid },
+            url: '/empty-cart',
+            type: "POST", // Ensure that the request type is POST
+            success: function(resp) {
+                $(".totalcartitems").html(resp.totalcartitems);
+                $('#appendcartitems').html(resp.view);
+                // $('#appendcartitems').html(resp.view);
+                $('#appendminicartitems').html(resp.minicartview);
+            },
+            error: function() {
+                alert("Error!");
+            }
+        });
+        
+    })
+    // register form validation
+    $("#registerForm").submit(function(event) {
+        event.preventDefault(); // Prevent the default form submission
+    
+        var formData = $("#registerForm").serialize();
+    
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+            },
+            url: '/user/register',
+            type: "post",
+            data: formData,
+            success: function(resp) { // Corrected the parameter name to resp
+                if (resp.type == "validation") {
+                    $.each(resp.errors, function(i, error) {
+                        $("#register-" + i).css({
+                            'color': 'red',
+                            'display': 'block'
+                        }).html(error);
+    
+                        setTimeout(function() {
+                            $("#register-" + i).css({
+                                'display': 'none'
+                            });
+                        }, 5000);
+                    });
+                } else if (resp.type == "success") {
+                    // window.location.replace(resp.redirecturl);
+                    $("#register-success").attr('style','color: green');
+                    $("#register-success").html(data.message);
+                } else {
+                    alert("Unknown response type!");
+                }
+            },
+            error: function() {
+                alert("Error!");
+            }
+        });
+    });
+    // login form validation
+    $("#loginform").submit(function (event) {
+        event.preventDefault(); // Prevent the default form submission
+    
+        var formData = $(this).serialize();
+    
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+            },
+            url: '/user/login',
+            type: "post",
+            data: formData,
+            success: function (resp) {
+                if (resp && resp.type) {
+                    if (resp.type == "error") {
+                        if (resp.errors) {
+                            $.each(resp.errors, function (i, error) {
+                                $(".login-" + i).attr('style', 'color:red');
+                                $(".login-" + i).html(error);
+                                setTimeout(function () {
+                                    $(".login-" + i).css({
+                                        'display': 'none'
+                                    });
+                                }, 5000);
+                            });
+                        }
+                    } else if (resp.type == "inactive") {
+                        $("#login-error").attr('style', 'color: red');
+                        $("#login-error").html(resp.message);
+                    } else if (resp.type == "incorrect") {
+                        $("#login-error").attr('style', 'color: red');
+                        $("#login-error").html(resp.message);
+                    }
+                    else if (resp.type == "success") {
+                        // alert(resp.redirectUrl)
+                        window.location.href = resp.redirectUrl;
+                    }
+                } else {
+                    console.error("Invalid response format");
+                }
+            },
+            error: function () {
+                alert("Error!");
+            }
+        });
+    });
+    
 });
+
+

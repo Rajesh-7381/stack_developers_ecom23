@@ -265,6 +265,7 @@ class productController extends Controller
 
             // get total cart items
             $totalcartitems=totalcartitems();
+            $getCartItems=getCartItems();
             $message = 'Product added successfully! <a href="/cart" style="color:white; text-decoration:underline;"> View Cart</a>';
             return response()->json(['status' => true, 'message' => $message,'totalcartitems'=>$totalcartitems]);
         }
@@ -298,7 +299,8 @@ class productController extends Controller
                 return response()->json([
                     'status' => false,
                     'message' => 'product stock is not available',
-                    'view' => (string)View::make('front.products.cart_items')->with(compact('getCartItems'))
+                    'view' => (string)View::make('front.products.cart_items')->with(compact('getCartItems')),
+                    'minicartview' => (string)View::make('front.layout.header_cartitems')->with(compact('getCartItems'))
                 ]);
             }
             // check product size is available
@@ -313,7 +315,9 @@ class productController extends Controller
                     'status' => false,
                     
                     'message' => 'product size is not available. please remove and choose another one!',
-                    'view' => (string)View::make('front.products.cart_items')->with(compact('getCartItems'))
+                    'view' => (string)View::make('front.products.cart_items')->with(compact('getCartItems')),
+                    'minicartview' => (string)View::make('front.layout.header_cartitems')->with(compact('getCartItems'))
+
                 ]);
             }
             // update cart item qty
@@ -328,7 +332,9 @@ class productController extends Controller
                 'status' => true,
                 // 'message'=>'product stock is not available',
                 'totalcartitems'=>$totalcartitems,
-                'view' => (string)View::make('front.products.cart_items')->with(compact('getCartItems'))
+                'view' => (string)View::make('front.products.cart_items')->with(compact('getCartItems')),
+                'minicartview' => (string)View::make('front.layout.header_cartitems')->with(compact('getCartItems'))
+
             ]);
 
             // return updated cart item via ajax
@@ -340,7 +346,7 @@ class productController extends Controller
             $data = $request->all();
             Carts::where('id', $data['cartid'])->delete();
             // update cart item
-            $getCartItems = Carts::getCartItems();
+            $getCartItems = getCartItems();
 
             // get total cart items
             $totalcartitems=totalcartitems(); 
@@ -349,10 +355,33 @@ class productController extends Controller
             return response()->json([
                 'status' => true,
 
-                'view' => (string)View::make('front.products.cart_items')->with(compact('getCartItems'))
+                'view' => (string)View::make('front.products.cart_items')->with(compact('getCartItems')),      
+                'minicartview' => (string)View::make('front.layout.header_cartitems')->with(compact('getCartItems'))
+
             ]);
         }
     }
+    public function emptycartitem(Request $request){
+        if ($request->ajax()) {
+            // empty cart items
+            emptyCart();
+            $getCartItems = getCartItems();
+
+            // get total cart items
+            $totalcartitems=totalcartitems(); 
+
+            // return update cart items
+            return response()->json([
+                'status' => true,
+
+                'view' => (string)View::make('front.products.cart_items')->with(compact('getCartItems')),      
+                'minicartview' => (string)View::make('front.layout.header_cartitems')->with(compact('getCartItems'))
+
+            ]);
+        }
+    }
+
+   
 }
 // / get category and their subcategory products
 //                 // $categoryIds = is_array($categoryDetails['catids']) ? $categoryDetails['catids'] : [$categoryDetails['catids']];
