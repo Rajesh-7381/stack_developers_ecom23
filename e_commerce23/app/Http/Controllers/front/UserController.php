@@ -68,7 +68,7 @@ class UserController extends Controller
     
             if ($userDetails->status == 1) {
                 // Redirect to the user login page using the 'user.login' named route
-                return redirect()->route('user.login')->with('error_message', 'Your account is already activated. You can login now.');
+                return redirect()->route('login')->with('error_message', 'Your account is already activated. You can login now.');
             } else {
                 User::where('email', $email)->update(['status' => 1]);
     
@@ -79,7 +79,7 @@ class UserController extends Controller
                 });
     
                 // Redirect to the user login page using the 'user.login' named route
-                return redirect()->route('user.login')->with('success_message', 'Your account has been activated. You can login now.');
+                return redirect()->route('login')->with('success_message', 'Your account has been activated. You can login now.');
             }
         } else {
             abort(404);
@@ -120,7 +120,7 @@ class UserController extends Controller
 
     
                 // Redirect to the user login page using the 'user.login' named route
-                return redirect()->route('user.login')->with('success_message', 'Your account has been activated. You can login now.');
+                return redirect()->route('login')->with('success_message', 'Your account has been activated. You can login now.');
 
                 }else{
                     return response()->json(['status' => false, 'type' => 'incorrect', 'errors' =>'you have entered wrong email or password!']);
@@ -142,5 +142,80 @@ class UserController extends Controller
         return redirect('user/login');
 
     }
-    
+    public function forgotpassword(Request $request){
+        if($request->ajax()){
+            $data=$request->all();
+            // echo "<pre>";print_r($data);die;
+            $validator=Validator::make($request->all(),[
+                
+                'email' => 'required|email|max:250|exists:users',
+                
+            ],
+            [
+                'email.exists'=>'this email id not exists '
+            ]);
+            if($validator->passes()){
+                $email=$data['email'];
+                $messagedata=['email'=>$data['email'],'code'=>base64_encode($data['email'])];
+                Mail::send('emails.reset_password',$messagedata,function($message) use ($email){
+                    $message->to($email)->subject(' Reset your password!...');
+                });
+                // Redirect to the user login page using the 'user.login' named route
+                return   response()->json(['type'=>'success','message'=>'reste password sent your registered email!']);
+            }else{
+                return response()->json(['status' => false, 'type' => 'error', 'errors' => $validator->messages()]);
+
+            }
+
+        }else{
+            
+        }
+        return view('front.users.forgot_password');
+    }
+    public function resetpassword(Request $request,$code=null){
+       if($request->ajax()){
+        $data=$request->all();
+         echo "<pre>";print_r($data);die;
+         $email=base64_encode($code);
+         $usercount=User::where('email',$email)->count();
+         if($usercount > 0){
+            // update new password
+            User::where('email',$email)->update(['password'=>bcrypt($data['password'])]);
+            // send confirmation mail to user
+            $messagedata=['email'=>$data['email']];
+                Mail::send('emails.new_password_confirmation',$messagedata,function($message) use ($email){
+                    $message->to($email)->subject(' new   password send your email address!...');
+                });
+                return   response()->json(['type'=>'success','message'=>'new password sent your registered email  and yoc can login now!']);
+
+         }
+
+        
+       }else{
+        return view('front.users.reset_password')->with(compact('code'));
+       }
+    }
+    public function account(Request $request){
+        if($request->ajax()){
+            $data=$request->all();
+            echo "<pre>";print_r($data);die;
+            $validator=Validator::make($request->all(),[
+                
+                // 'email' => 'required|email|max:250|exists:users',
+                'name' => 'required|string|max:150',
+                'city' => 'required|string|max:150',
+                'state' => 'required|string|max:150',
+                'address' => 'required|string|max:150',
+                'pincode' => 'required|numeric|max:6|max:6',
+                'mobile' => 'required|numeric|max:150',
+            ]);
+            if($validator->passes()){
+                // return   response()->json(['type'=>'success','message'=>'reste password sent your registered email!']);
+            }else{
+                return response()->json(['status' => false, 'type' => 'validation', 'errors' => $validator->messages()]);
+            }
+
+        }
+        return view('front.users.account');
+    }
 }

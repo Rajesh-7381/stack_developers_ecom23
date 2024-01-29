@@ -1,3 +1,7 @@
+
+// var inputelement=document.getElementById("billing-name");
+// var orginalplaceholder=inputelement.ariaPlaceholder;
+// alert(orginalplaceholder)
 $(document).ready(function () {
     $(".getPrice").change(function () {
         var size = $(this).val();
@@ -40,6 +44,7 @@ $(document).ready(function () {
     });
     $("#addToCart").submit(function () {
         // alert("test");
+        $(".loader").show();
         var formData = $(this).serialize();
         // alert(formData)
 
@@ -52,6 +57,7 @@ $(document).ready(function () {
             data: formData,
             type: "post", // Change to POST request
             success: function (resp) {
+                $(".loader").hide();
                 // alert(resp['message'])
                 $(".totalcartitems").html(resp.totalcartitems);
                 $('#appendcartitems').html(resp.view);
@@ -82,6 +88,7 @@ $(document).ready(function () {
                 }
             },
             error: function () {
+                $(".loader").hide();
                 alert("error");
             },
         });
@@ -181,6 +188,7 @@ $(document).ready(function () {
     })
     // register form validation
     $("#registerForm").submit(function(event) {
+        $(".loader").show();
         event.preventDefault(); // Prevent the default form submission
     
         var formData = $("#registerForm").serialize();
@@ -194,6 +202,7 @@ $(document).ready(function () {
             data: formData,
             success: function(resp) { // Corrected the parameter name to resp
                 if (resp.type == "validation") {
+                    $(".loader").hide();
                     $.each(resp.errors, function(i, error) {
                         $("#register-" + i).css({
                             'color': 'red',
@@ -207,6 +216,7 @@ $(document).ready(function () {
                         }, 5000);
                     });
                 } else if (resp.type == "success") {
+                    $(".loader").hide();
                     // window.location.replace(resp.redirecturl);
                     $("#register-success").attr('style','color: green');
                     $("#register-success").html(data.message);
@@ -215,6 +225,7 @@ $(document).ready(function () {
                 }
             },
             error: function() {
+                $(".loader").hide();
                 alert("Error!");
             }
         });
@@ -266,7 +277,146 @@ $(document).ready(function () {
             }
         });
     });
+
+    // forgot form 
+    $("#forgotform").submit(function (event) {
+        $(".loader").show();
+        event.preventDefault(); // Prevent the default form submission
     
+        var formData = $(this).serialize();
+    
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+            },
+            url: '/user/forgot-password',
+            type: "post",
+            data: formData,
+            success: function (resp) {
+                $(".loader").hide();
+                if (resp && resp.type) {
+                    if (resp.type == "error") {
+                        if (resp.errors) {
+                            $.each(resp.errors, function (i, error) {
+                                $(".forgot-" + i).attr('style', 'color:red');
+                                $(".forgot-" + i).html(error);
+                                setTimeout(function () {
+                                    $(".forgot-" + i).css({
+                                        'display': 'none'
+                                    });
+                                }, 5000);
+                            });
+                        }
+                    } 
+                    else if (resp.type == "success") {
+                        $(".forgot-success").attr('style', 'color:green');
+                        $(".forgot-success").html(resp.message);
+                        // alert(resp.redirectUrl)
+                        // window.location.href = resp.redirectUrl;
+                    }
+                } else {
+                    console.error("Invalid response format");
+                }
+            },
+            error: function () {
+                $(".loader").hide();
+                alert("Error!");
+            }
+        });
+    });
+    
+    // reset password
+    $("#resetpasswordform").submit(function (event) {
+        $(".loader").show();
+        event.preventDefault(); // Prevent the default form submission
+    
+        var formData = $(this).serialize();
+    
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+            },
+            url: '/user/reset-password',
+            type: "post",
+            data: formData,
+            success: function (resp) {
+                $(".loader").hide();
+                if (resp && resp.type) {
+                    if (resp.type == "error") {
+                        if (resp.errors) {
+                            $.each(resp.errors, function (i, error) {
+                                $(".forgot-" + i).attr('style', 'color:red');
+                                $(".forgot-" + i).html(error);
+                                setTimeout(function () {
+                                    $(".reset-" + i).css({
+                                        'display': 'none'
+                                    });
+                                }, 5000);
+                            });
+                        }
+                    } 
+                    else if (resp.type == "success") {
+                        $(".loader").hide();
+                        $(".reset-success").attr('style', 'color:green');
+                        $(".reset-success").html(resp.message);
+                        // alert(resp.redirectUrl)
+                        // window.location.href = resp.redirectUrl;
+                    }
+                } else {
+                    console.error("Invalid response format");
+                }
+            },
+            error: function () {
+                $(".loader").hide();
+                alert("Error!");
+            }
+        });
+    });
+
+     // account form validation
+     $("#accountform").submit(function(event) {
+        $(".loader").show();
+        event.preventDefault(); // Prevent the default form submission
+    
+        var formData = $("#accountform").serialize();
+    
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+            },
+            url: '/user/account',
+            type: "post",
+            data: formData,
+            success: function(resp) { // Corrected the parameter name to resp
+                if (resp.type == "validation") {
+                    $(".loader").hide();
+                    $.each(resp.errors, function(i, error) {
+                        $("#account-" + i).css({
+                            'color': 'red',
+                            'display': 'block'
+                        }).html(error);
+    
+                        setTimeout(function() {
+                            $("#register-" + i).css({
+                                'display': 'none'
+                            });
+                        }, 5000);
+                    });
+                } else if (resp.type == "success") {
+                    $(".loader").hide();
+                    // window.location.replace(resp.redirecturl);
+                    $("#account-success").attr('style','color: green');
+                    $("#account-success").html(data.message);
+                } else {
+                    alert("Unknown response type!");
+                }
+            },
+            error: function() {
+                $(".loader").hide();
+                alert("Error!");
+            }
+        });
+    });
 });
 
 

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Move Placeholder</title>
+</head>
+<body>
+
+    <input type="text" id="myInput" placeholder="New Placeholder">
+
+    <script>
+        var inputElement = document.getElementById('myInput');
+        // alert(inputElement)
+        var originalPlaceholder = inputElement.placeholder;
+        // alert(originalPlaceholder) // New Placeholder
+        var letters = originalPlaceholder.split('');
+        // alert(letters) // n,e,w...
+        var currentIndex = 0;
+        var isForward = true;
+
+        // Start the interval to move forward and backward
+        var intervalId = setInterval(function () {
+            if (isForward) {
+                moveForward();
+            } else {
+                moveBackward();
+            }
+        }, 200);
+
+        function moveForward() {
+            if (currentIndex < letters.length) {
+                letters[currentIndex] = originalPlaceholder[currentIndex];
+                inputElement.placeholder = letters.join('');
+                currentIndex++;
+            } else {
+                currentIndex = letters.length - 1;
+                isForward = false;
+            }
+        }
+
+        function moveBackward() {
+            if (currentIndex >= 0) {
+                letters[currentIndex] = ' ';
+                inputElement.placeholder = letters.join('');
+                currentIndex--;
+            } else {
+                currentIndex = 0;
+                isForward = true;
+            }
+        }
+    </script>
+
+</body>
+</html>

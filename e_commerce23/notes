@@ -132,5 +132,6 @@ part->124
     ->if user status 0 shown invalid and your account is not activate dyet!
 part->125
     ->cookies stored data but not shown
-part->125
-    ->watch
+part->126
+    ->password reset successful but confirmatiom email not comes
+    ->loader script,css,html in frontend/layout/layout.blade
