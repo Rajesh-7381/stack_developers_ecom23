@@ -7,6 +7,7 @@ use App\Models\Country;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 
@@ -223,4 +224,37 @@ class UserController extends Controller
         }
         // return view('front.users.account');
     }
+    public function updatepassword(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+    
+            $validator = Validator::make($request->all(), [
+                'current_password' => 'required',
+                'new_password' => 'required|min:6', // Update the min length as needed
+                'confirm_password' => 'required|same:new_password',
+            ]);
+    
+            if ($validator->passes()) {
+                $current_password = $data['current_password'];
+                $check_password = User::where('id', Auth::user()->id)->first();
+    
+                if (Hash::check($current_password, $check_password->password)) {
+                    // Update the user's password
+                    $user = User::find(Auth::user()->id);
+                    $user->password = bcrypt($data['new_password']);
+                    $user->save();
+    
+                    return response()->json(['type' => 'success', 'message' => 'Password updated successfully!']);
+                } else {
+                    return response()->json(['type' => 'incorrect', 'message' => 'Your current password is incorrect!']);
+                }
+            } else {
+                return response()->json(['type' => 'error', 'errors' => $validator->messages()]);
+            }
+        } else {
+            return view('front.users.update-password');
+        }
+    }
+    
 }

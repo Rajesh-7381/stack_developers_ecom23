@@ -119,6 +119,8 @@ Route::namespace('App\Http\Controllers\front')->group(function () {
     Route::group(['middleware'=>['auth']],function(){
         // user account
     Route::match(['get','post'],'user/account', [UserController::class, 'account']);
+    // update password
+    Route::match(['get','post'],'user/update-password', [UserController::class, 'updatepassword']);
         // user logout
     Route::get('user/logout', [UserController::class, 'logout']);
     });

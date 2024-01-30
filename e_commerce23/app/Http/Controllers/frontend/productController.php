@@ -267,7 +267,13 @@ class productController extends Controller
             $totalcartitems=totalcartitems();
             $getCartItems=getCartItems();
             $message = 'Product added successfully! <a href="/cart" style="color:white; text-decoration:underline;"> View Cart</a>';
-            return response()->json(['status' => true, 'message' => $message,'totalcartitems'=>$totalcartitems]);
+            return response()->json([
+                'status' => true,
+                'message' => $message,
+                'totalcartitems' => $totalcartitems,
+                'minicartview' => (string)View::make('front.layout.header_cartitems')->with(compact('getCartItems'))
+            ]);            
+
         }
     }
     public function cart()
@@ -305,9 +311,9 @@ class productController extends Controller
             }
             // check product size is available
             $availablesize = ProductsAttributes::where(['product_id' => $cartDetails['product_id'], 'size' => $cartDetails['product_size'], 'status' => 1])->count();
-            echo "<pre>";
-            print_r($availablesize);
-            die;
+            // echo "<pre>";
+            // print_r($availablesize);
+            // die;
             // check if the desired size is available 
             if ($availablesize == 0) {
                 $getCartItems = Carts::getCartItems();

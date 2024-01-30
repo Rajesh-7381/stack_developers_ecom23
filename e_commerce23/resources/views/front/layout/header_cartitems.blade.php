@@ -52,8 +52,8 @@
         <span class="subtotal-value">₹{{$total_price}}</span>
     </div>
     <div class="mini-action">
-        <a class="mini-link btn--e-brand-b-2" href="checkout.html">PROCEED TO CHECKOUT</a>
-        <a class="mini-link btn--e-transparent-secondary-b-2" href="cart.html">VIEW CART</a>
+        <a class="mini-link btn--e-brand-b-2" href="{{url('checkout')}}">PROCEED TO CHECKOUT</a>
+        <a class="mini-link btn--e-transparent-secondary-b-2" href="{{url('cart')}}">VIEW CART</a>
     </div>
 </div>
 <!--====== End - Mini Product Statistics ======-->

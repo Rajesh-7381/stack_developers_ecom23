@@ -420,6 +420,60 @@ $(document).ready(function () {
             }
         });
     });
+
+    // user update password
+    $("#passwordform").submit(function(event) {
+        $(".loader").show();
+        event.preventDefault(); // Prevent the default form submission
+    
+        var formData = $(this).serialize();
+    
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+            },
+            url: '/user/update-password',
+            type: "post",
+            data: formData,
+            success: function(resp) {
+                if (resp.type == "error") {
+                    $(".loader").hide();
+                    $.each(resp.errors, function(i, error) {
+                        $("#password-" + i).css({
+                            'color': 'red',
+                            'display': 'block'
+                        }).html(error);
+    
+                        setTimeout(function() {
+                            $("#password-" + i).css({
+                                'display': 'none'
+                            });
+                        }, 5000);
+                    });
+                } else if (resp.type == "incorrect") {
+                    $(".loader").hide();
+                    $("#password-error").attr('style', 'color: red; font-size: 24px;');
+                    $("#password-error").html('&#10008; ' + resp.message); 
+                    setTimeout(function(){
+                        $("#password-error").empty();
+                    },20000)
+                } else if (resp.type == "success") {
+                    $(".loader").hide();
+                    $("#password-success").attr('style', 'color: green; font-size: 24px;');
+                    $("#password-success").html('&#10004; ' + resp.message); 
+                    setTimeout(function(){
+                        $("#password-success").empty();
+                    },20000)
+                } else {
+                    alert("Unknown response type!");
+                }
+            },
+            error: function() {
+                $(".loader").hide();
+                alert("Error!");
+            }
+        });
+    });
     
 });
 
