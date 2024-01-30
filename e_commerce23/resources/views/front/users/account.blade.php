@@ -44,7 +44,8 @@
                             <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
                                 <div class="dash__pad-1">
 
-                                    <span class="dash__text u-s-m-b-16">Hello <h4 style="color: green">{{ explode(' ', Auth::user()->name)[0] }}</h4></span>
+                                    <span class="dash__text u-s-m-b-16">Hello <h4 style="color: green">{{ explode(' ',
+                                            Auth::user()->name)[0] }}</h4></span>
 
                                     <ul class="dash__f-list">
                                         <li><a href="account.html">My Billing/Contact Address</a></li>
@@ -63,7 +64,8 @@
                                     <h1 class="dash__h1 u-s-m-b-14">My Billing/Contact Address</h1>
 
                                     <span class="dash__text u-s-m-b-30">Please add your Billing/Contact details.</span>
-                                    <p id="account-success`0"></p>
+                                    <p id="account-success"></p>
+                                    {{-- <span id="success-icon"></span> --}}
                                     <p id="account-error"></p>
                                     <form class="dash-address-manipulation" id="accountform" action="javascript:;"
                                         method="post">
@@ -85,7 +87,7 @@
                                                 <input class="input-text input-text--primary-style" type="text"
                                                     name="address" id="billing-address" id="billing-address"
                                                     placeholder="ADDRESS" value="{{Auth::user()->address}}">
-                                                    <p id="account-address"></p>
+                                                <p id="account-address"></p>
                                             </div>
                                         </div>
                                         <div class="gl-inline">
@@ -96,7 +98,7 @@
                                                 <input class="input-text input-text--primary-style" name="city"
                                                     type="text" id="billing-city" placeholder="CITY"
                                                     value="{{Auth::user()->city}}">
-                                                    <p id="account-city"></p>
+                                                <p id="account-city"></p>
                                             </div>
                                             <div class="u-s-m-b-30">
 
@@ -105,7 +107,7 @@
                                                 <input class="input-text input-text--primary-style" type="text"
                                                     id="billing-state" name="state" placeholder="STATE"
                                                     value="{{Auth::user()->state}}">
-                                                    <p id="account-state"></p>
+                                                <p id="account-state"></p>
                                             </div>
                                         </div>
                                         <div class="gl-inline">
@@ -114,65 +116,67 @@
                                                 <!--====== Select Box ======-->
 
                                                 <label class="gl-label" for="billing-country">COUNTRY *</label>
-                                                {{-- <select class="select-box select-box--primary-style"
-                                                    id="billing-country">
-                                                    <option selected value="">Choose Country</option>
-                                                    <option value="india">India</option>
-                                                    <option value="uae">United Arab Emirate (UAE)</option>
-                                                    <option value="uk">United Kingdom (UK)</option>
-                                                    <option value="us">United States (US)</option>
-                                                </select> --}}
+                                                <select class="select-box select-box--primary-style"
+                                                    id="billing-country" name="country" required="">
+                                                    @foreach($countries as $country)
+                                                    <option value="{{ $country['country_name'] }}" @if($country['country_name'] == Auth::user()->country) selected @endif>
+                                                        {{ $country['country_name'] }}
+                                                    </option>
+                                                @endforeach
+                                                
+                                                </select>
                                                 <!--====== End - Select Box ======-->
-                                                <input class="input-text input-text--primary-style" type="text"
+                                                {{-- <input class="input-text input-text--primary-style" type="text"
                                                     id="billing-COUNTRY" name="country"
                                                     value="{{Auth::user()->country}}" placeholder="COUNTRY">
-                                                    <p id="account-country"></p>
+                                                <p id="account-country"></p> --}}
                                             </div>
-                                        
-                                        <div class="u-s-m-b-30">
 
-                                            <label class="gl-label" for="billing-pincode">PINCODE *</label>
+                                            <div class="u-s-m-b-30">
 
-                                            <input class="input-text input-text--primary-style" type="text"
-                                                id="billing-pincode" name="pincode" placeholder="PINCODE"
-                                                value="{{Auth::user()->pincode}}">
+                                                <label class="gl-label" for="billing-pincode">PINCODE *</label>
+
+                                                <input class="input-text input-text--primary-style" type="text"
+                                                    id="billing-pincode" name="pincode" placeholder="PINCODE"
+                                                    value="{{Auth::user()->pincode}}">
                                                 <p id="account-pincode"></p>
+                                            </div>
                                         </div>
-                                    </div>
-                               
-                                <div class="gl-inline">
-                                    <div class="u-s-m-b-30">
 
-                                        <label class="gl-label" for="billing-mobile">MOBILE *</label>
+                                        <div class="gl-inline">
+                                            <div class="u-s-m-b-30">
 
-                                        <input class="input-text input-text--primary-style" type="text" name="mobile"
-                                            id="billing-mobile" placeholder="MOBILE" value="{{Auth::user()->mobile}}">
-                                            <p id="account-mobile"></p>
-                                    </div>
-                                    <div class="u-s-m-b-30">
+                                                <label class="gl-label" for="billing-mobile">MOBILE *</label>
 
-                                        <label class="gl-label" for="billing-email">EMAIL *</label>
+                                                <input class="input-text input-text--primary-style" type="text"
+                                                    name="mobile" id="billing-mobile" placeholder="MOBILE"
+                                                    value="{{Auth::user()->mobile}}">
+                                                <p id="account-mobile"></p>
+                                            </div>
+                                            <div class="u-s-m-b-30">
 
-                                        <input style="background-color: pink"
-                                            class="input-text input-text--primary-style" name="email" type="email"
-                                            id="billing-email" placeholder="EMAIL" value="{{Auth::user()->email}}"
-                                            readonly>
-                                            <p id="account-email"></p>
-                                    </div>
+                                                <label class="gl-label" for="billing-email">EMAIL *</label>
+
+                                                <input style="background-color: pink"
+                                                    class="input-text input-text--primary-style" name="email"
+                                                    type="email" id="billing-email" placeholder="EMAIL"
+                                                    value="{{Auth::user()->email}}" readonly>
+                                                <p id="account-email"></p>
+                                            </div>
+                                        </div>
+
+                                        <button class="btn btn--e-brand-b-2" type="submit">SAVE</button>
+                                    </form>
                                 </div>
-
-                                <button class="btn btn--e-brand-b-2" type="submit">SAVE</button>
-                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!--====== End - Section Content ======-->
     </div>
-    <!--====== End - Section Content ======-->
-</div>
-<!--====== End - Section 2 ======-->
+    <!--====== End - Section 2 ======-->
 </div>
 <!--====== End - App Content ======-->
 @endsection

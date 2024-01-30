@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -198,24 +199,28 @@ class UserController extends Controller
     public function account(Request $request){
         if($request->ajax()){
             $data=$request->all();
-            echo "<pre>";print_r($data);die;
-            $validator=Validator::make($request->all(),[
-                
-                // 'email' => 'required|email|max:250|exists:users',
+            // echo "<pre>";print_r($data);die;
+            $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:150',
                 'city' => 'required|string|max:150',
                 'state' => 'required|string|max:150',
+                'country' => 'required|string|max:150', // Update to match your actual field name
                 'address' => 'required|string|max:150',
-                'pincode' => 'required|numeric|max:6|max:6',
-                'mobile' => 'required|numeric|max:150',
+                'pincode' => 'required|numeric|max:999999|min:100000', // Assuming you want a 6-digit pincode
+                'mobile' => 'required|numeric|max:9999999999|min:1000000000', // Assuming you want a 10-digit mobile number
             ]);
+            
             if($validator->passes()){
-                // return   response()->json(['type'=>'success','message'=>'reste password sent your registered email!']);
+                User::where('id',Auth::user()->id)->update(['name'=>$data['name'],'city'=>$data['city'],'state'=>$data['state'],'address'=>$data['address'],'pincode'=>$data['pincode'],'mobile'=>$data['mobile'],'country'=>$data['country']]);
+                return   response()->json(['status'=>true,'type'=>'success','message'=>'updated your deatails successfully!']);
             }else{
                 return response()->json(['status' => false, 'type' => 'validation', 'errors' => $validator->messages()]);
             }
 
+        }else{
+            $countries=Country::where('status',1)->get()->toArray();
+            return view('front.users.account')->with(compact('countries'));
         }
-        return view('front.users.account');
+        // return view('front.users.account');
     }
 }

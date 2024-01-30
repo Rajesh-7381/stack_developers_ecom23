@@ -135,3 +135,5 @@ part->125
 part->126
     ->password reset successful but confirmatiom email not comes
     ->loader script,css,html in frontend/layout/layout.blade
+part->131
+    ->in google to search "countries mysql"     and download and import contry table
