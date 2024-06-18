@@ -254,21 +254,7 @@
                                                     <input type="text" name="image_sort[]" value="{{$image['image_sort']}}" style="width: 30px">
                                                     <a href="javascript:void(0)" record="product-page" record_id="{{$product['id']}}" name="product page" check="product-page" class="confirmdelete btn btn-danger btn-sm" title=" delete it!"><i class="fas fa-trash"></i></a>
                                                         
-                                                    {{-- for medium size --}}
-                                                    {{-- <a href="{{asset('admin-assets/front/products/medium/' . $image->image) }}" target="_blank"><img src="{{ asset('admin-assets/front/products/medium/' . $image->image) }}" alt="Product Image" style="width: 70px;"></a> --}}
-                                                    {{-- if i set input type text it shown image name --}}
-                                                    {{-- <input type="text" name="image[]" value="{{$image['image']}}">  --}}
-                                                    {{-- <input type="text" name="image_sort[]" value="{{$image['image_sort']}}" style="width: 30px"> --}}
-                                                    {{-- <a href="javascript:void(0)" record="product-page" record_id="{{$product['id']}}" name="product page" check="product-page" class="confirmdelete btn btn-danger btn-sm" title=" delete it!"><i class="fas fa-trash"></i></a> --}}
-
-
-                                                    {{-- for large size --}}
-                                                    {{-- <a href="{{asset('admin-assets/front/products/large/' . $image->image) }}" target="_blank"><img src="{{ asset('admin-assets/front/products/large/' . $image->image) }}" alt="Product Image" style="width: 70px;"></a> --}}
-                                                    {{-- if i set input type text it shown image name --}}
-                                                    {{-- <input type="text" name="image[]" value="{{$image['image']}}">  --}}
-                                                    {{-- <input type="text" name="image_sort[]" value="{{$image['image_sort']}}" style="width: 30px"> --}}
-                                                    {{-- <a href="javascript:void(0)" record="product-page" record_id="{{$product['id']}}" name="product page" check="product-page" class="confirmdelete btn btn-danger btn-sm" title=" delete it!"><i class="fas fa-trash"></i></a> --}}
-
+                                                    
                                                 @endforeach
                                                     </tr>
                                                 </table>
@@ -435,3 +421,135 @@
     });
 </script>
 
+
+
+import React, { useState } from 'react';
+
+// Component to handle image uploads and sorting
+const ProductImages = () => {
+  const [images, setImages] = useState([]);
+
+  // Handle file upload
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    const newImages = files.map((file, index) => ({
+      id: images.length + index + 1,
+      file: URL.createObjectURL(file),
+      sort: images.length + index + 1,
+    }));
+    setImages([...images, ...newImages]);
+  };
+
+  // Handle sorting change
+  const handleSortChange = (id, newSort) => {
+    setImages(
+      images.map((image) =>
+        image.id === id ? { ...image, sort: newSort } : image
+      )
+    );
+  };
+
+  // Handle image deletion
+  const handleDelete = (id) => {
+    setImages(images.filter((image) => image.id !== id));
+  };
+
+  return (
+    <div>
+      <div className="form-group">
+        <label htmlFor="product_images">
+          Product Images (Recommended size: less than 1040 x 1200)
+        </label>
+        <input
+          type="file"
+          className="form-control"
+          id="product_images"
+          multiple
+          onChange={handleFileChange}
+        />
+      </div>
+      {images.length > 0 && (
+        <div className="image-preview">
+          <table cellPadding="10" cellSpacing="10" border="1" style={{ margin: '10px' }}>
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Sort Order</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {images
+                .sort((a, b) => a.sort - b.sort)
+                .map((image) => (
+                  <tr key={image.id}>
+                    <td>
+                      <img
+                        src={image.file}
+                        alt="Product"
+                        style={{ width: '70px' }}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        value={image.sort}
+                        onChange={(e) =>
+                          handleSortChange(image.id, parseInt(e.target.value, 10))
+                        }
+                        style={{ width: '50px' }}
+                      />
+                    </td>
+                    <td>
+                      <button
+                        onClick={() => handleDelete(image.id)}
+                        className="btn btn-danger btn-sm"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ProductImages;
+
+server.js
+const express = require("express");
+const app = express();
+const bodyParser = require("body-parser");
+const userRoutes = require("./routes/userRoutes");
+const cmsRoutes = require("./routes/cmsRoutes");
+require("dotenv").config();
+
+// Middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Routes
+app.use("/users", userRoutes);
+app.use("/cms", cmsRoutes);
+
+// Start the server
+const PORT = process.env.PORT || 8081;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
+
+
+<div className="form-group text-start">
+    <label htmlFor="">Product Attribute</label>
+    <input type="text" name="size[]" id='size' placeholder='Size' style={{width:"120px"}} value=""  />
+    <input type="text" name="sku[]" id='sku' placeholder='Sku' style={{width:"120px"}} value="" />
+    <input type="text" name="price[]" id='price' placeholder='Price' style={{width:"120px"}} value="" />
+    <input type="text" name="stock[]" id='stock' placeholder='Stock' style={{width:"120px"}} value="" />
+    
+    <a href="javascript:void(0);" className="add_button" title="Add field" onClick={handleAddField}>Add</a>
+</div>

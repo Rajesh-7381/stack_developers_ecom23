@@ -4,6 +4,7 @@
 
 use App\Http\Controllers\admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CuponsController;
 use App\Http\Controllers\admin\ProductsController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CmsController;
@@ -92,13 +93,19 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         Route::post('update-status-banner-page', [BannerController::class, 'updatebannerstatus']);
         Route::get('delete-banner-page/{id?}', [BannerController::class, 'deletebanner']);
         Route::match(['get', 'post'], 'add-edit-banner-page/{id?}', [BannerController::class, 'addedit']);
+
+        // cupons
+        Route::match(['get', 'post'], 'cupons', [CuponsController::class, 'cupons']);
+        Route::post('update-status-cupons-page', [CuponsController::class, 'updatecuponstatus']);
+        Route::get('delete-cupons-page/{id?}', [CuponsController::class, 'deletecupons']);
+        Route::match(['get', 'post'], 'add-edit-cupon/{id?}', [CuponsController::class, 'addEditcupon']);
+
+
     });
 });
 
 // Route::get('login',[MainController::class,'login']);
 // Route::get('dashboard',[MainController::class,'dashboard']);
-
-
 
 // frontend 
 Route::namespace('App\Http\Controllers\front')->group(function () {

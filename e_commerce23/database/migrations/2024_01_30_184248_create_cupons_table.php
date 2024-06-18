@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('categories');
             $table->text('brands');
             $table->string('cupon_type');
+            $table->string('user');
             $table->float('amount');
             $table->date('expiary_date');
             $table->tinyInteger('status');

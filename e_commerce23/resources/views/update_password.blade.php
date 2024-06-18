@@ -45,21 +45,58 @@
                                         value="{{ Auth::guard('admin')->user()->email }}" readonly
                                         style="background-color: #666; color: white;" placeholder="Enter email">
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="CurrentPassword">Current Password</label>
                                     <input type="password" class="form-control" id="CurrentPassword"
-                                        name="CurrentPassword" placeholder="Password">
+                                        name="CurrentPassword" placeholder="Enter Current Password">
                                     <span id="verifycurntpwd"></span>
+                                </div> --}}
+                                <label for="CurrentPassword">Current Password</label>
+                                <div class="input-group mb-3 password-input-container">
+                                    
+                                    <input type="password"  name="CurrentPassword" id="CurrentPassword" autocomplete="current-password"
+                                        class="form-control" placeholder="Enter Current Password">
+            
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="toggle-password fas fa-eye" onclick="togglePasswordVisibility('password')"></span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="NewPassword">New Password</label>
                                     <input type="password" class="form-control" id="NewPassword" name="NewPassword"
-                                        placeholder="Password">
+                                        placeholder="Enter NewPassword"><i class="fas fa-lock" style="margin-left: 10px"></i>
+                                </div> --}}
+                                <label for="NewPassword">New Password</label>
+                                <div class="input-group mb-3 password-input-container">
+                                    
+                                    <input type="password"  name="NewPassword" id="NewPassword" autocomplete="current-password"
+                                        class="form-control" placeholder="Enter NewPassword">
+            
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="toggle-password fas fa-eye" onclick="togglePasswordVisibility('password')"></span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group">
+
+                                {{-- <div class="form-group">
                                     <label for="ConfirmPassword">Confirm Password</label>
                                     <input type="password" class="form-control" id="ConfirmPassword"
-                                        name="ConfirmPassword" placeholder="Password">
+                                        name="ConfirmPassword" placeholder="Enter Eonfirm Password">
+                                </div> --}}
+                                <label for="ConfirmPassword">Confirm Password</label>
+                                <div class="input-group mb-3 password-input-container">
+                                    
+                                    <input type="password"  name="ConfirmPassword" id="ConfirmPassword" autocomplete="current-password"
+                                        class="form-control" placeholder="Enter Eonfirm Password">
+            
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="toggle-password fas fa-eye" onclick="togglePasswordVisibility('password')"></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-footer">
@@ -72,8 +109,4 @@
         </div>
     </section>
 </div>
-
-
-
-
 @endsection

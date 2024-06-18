@@ -324,4 +324,54 @@ $(document).ready(function () {
             },
         });
     });
+
+
+    // update cupon status
+    $(document).on("click", ".updatecuponstatus", function () {
+        var status = $(this).attr("status");
+        // alert(status)
+        var cuppon_id = $(this).attr("cuppon_id");
+        // alert(cuppon_id)
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            type: "post",
+            url: "/admin/update-status-cupons-page",
+            data: { status: status, cuppon_id: cuppon_id },
+            success: function (response) {
+                // Handle the response from the server after the status update
+                if (response["status"] == 0) {
+                    // If the status is 0, update the icon and status to 'Inactive'
+                    $("#cupon-" + cuppon_id + " i")
+                        .removeClass("fa-toggle-on")
+                        .addClass("fa-toggle-off")
+                        .css("color", "gray");
+                    $("#cupon-" + cuppon_id).attr("status", "Inactive");
+                } else if (response["status"] == 1) {
+                    // If the status is 1, update the icon and status to 'Active'
+                    $("#cupon-" + cuppon_id + " i")
+                        .removeClass("fa-toggle-off")
+                        .addClass("fa-toggle-on")
+                        .css("color", "");
+                    $("#cupon-" + cuppon_id).attr("status", "Active");
+                } else {
+                    // Handle other cases if needed
+                }
+            },
+            error: function () {
+                // If there's an error with the AJAX request, show an alert
+                alert("Error");
+            },
+        });
+    });
+
+    // show /hide cupon
+    $("#automaticCupon").click(function() {
+        $("#cuponfield").hide();
+    });
+
+    $("#manualCupon").click(function() {
+        $("#cuponfield").show();
+    });
 });

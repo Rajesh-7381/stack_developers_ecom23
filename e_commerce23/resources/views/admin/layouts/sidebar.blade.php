@@ -162,6 +162,30 @@
          </ul>
         </li>
         @endif
+
+
+        @if (Auth::guard('admin')->user()->type=='admin')
+        <li class="nav-item {{ Request::is('admin/cupons*') ? 'menu-open' : '' }}">
+          <a href="#" class="nav-link {{ Request::is('admin/cupons*')? 'active' : '' }}">
+              <i class="nav-icon fas fa-image"></i>
+              <p>
+                Cupons Management
+                  <i class="right fas fa-angle-left"></i>
+              </p>
+          </a>
+        
+          <ul class="nav nav-treeview">
+            <li class="nav-item {{ Request::is('admin/cupons*') ? 'menu-open' : '' }}">
+              <a href="{{ url('admin/cupons') }}" class="nav-link {{ Request::is('admin/cupons*') ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-copy"></i>
+                  <p>
+                    Cupons Pages
+                  </p>
+              </a>
+            </li>          
+         </ul>
+        </li>
+        @endif
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

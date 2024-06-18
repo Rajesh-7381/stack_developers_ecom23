@@ -40,12 +40,16 @@
               margin-top: -32px;
               position: absolute;
               top: 50%;
+              width: 64px; /* Adjust to the desired width */
+              height: 64px;
             }
             </style>
     </head>
     <body class="config">
         <div class="loader">
-            <img src="{{asset('frontend/images/loader3.gif')}}" alt="loading..." />
+            {{-- <img src="{{asset('frontend/images/loader3.gif')}}" alt="loading..." /> --}}
+            <img src="https://i.gifer.com/ZKZg.gif" alt="loading..." />
+
          </div>   
         <div class="preloader is-active">
             <div class="preloader__wrap">
